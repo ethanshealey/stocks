@@ -1,6 +1,9 @@
 # Welcome to Stocks by Ethan Shealey!
 
 ## Getting Started
+
+This application uses Firebase for authentication and Storage, as well as [YAHOO! Finance](https://rapidapi.com/sparior/api/yahoo-finance15) API and [Alpha Vantage](https://rapidapi.com/alphavantage/api/alpha-vantage) API
+
 1) Add a .env to the root of the application with the following contents
 
 ```
