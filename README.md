@@ -1,5 +1,4 @@
 # Welcome to Stocks by Ethan Shealey!
----
 
 ## Getting Started
 1) Add a .env to the root of the application with the following contents
