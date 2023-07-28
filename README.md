@@ -9,6 +9,7 @@ X_RAPIDAPI_HOST=<RAPID APY YAHOO FINANCE HOST>
 X_RAPIDAPI_HOST_ALPHA=<RAPID API ALPHA VANTAGE HOST>
 ```
 <sup>Note: you will need to get your API key and Host values from rapidapi.com</sup>
+
 2) Add a firebase.js to the `src/` directory with the following contents
 
 ```
