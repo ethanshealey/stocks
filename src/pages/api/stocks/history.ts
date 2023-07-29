@@ -21,12 +21,13 @@ export default function handler(
         }).then((res) => res.json()).then((data) => {
             const history: any[] = []
             for(const [k,v] of Object.entries(data.items)) {
-                const tdate = new Date(v.date_utc * 1000).toString().split(':')
+                const val: any = v
+                const tdate = new Date(val.date_utc * 1000).toString().split(':')
                 tdate.pop()
                 const date = `${ tdate.join(':').split(' ')[1] } ${ tdate.join(':').split(' ')[2] } ${ tdate.join(':').split(' ')[3] } ${ tdate.join(':').split(' ')[4] }`
-                v['fixed_date'] = date
-                v['fixed_date_MMHH'] = date.split(' ')[3]
-                history.push(v)
+                val['fixed_date'] = date
+                val['fixed_date_MMHH'] = date.split(' ')[3]
+                history.push(val)
             }
             fetch(`https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/${sym}/asset-profile`, {
                 headers: headers
