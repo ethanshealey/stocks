@@ -6015,25 +6015,6 @@ const StockDetails = () => {
         }
     }, [symbol, router.isReady])
 
-    const isToday = (d: string) => {
-
-        // const dateArr = d.split('-')
-        // const fixedDate = dateArr[2] + '-' + dateArr[0] + '-' + dateArr[1]
-
-        const given: Date = new Date(d.date_utc)
-        const today: Date = new Date()
-
-        return given.getDate() === today.getDate() - 1 &&
-               given.getMonth() === today.getMonth() &&
-               given.getFullYear() === today.getFullYear()
-    }
-
-    const getMin = () => {
-    }
-
-    const getMax = () => {
-    }
-
     const customTooltip = ({ active, payload, label }: any) => {
         if(active && payload && payload.length) {
             return (
@@ -6084,7 +6065,7 @@ const StockDetails = () => {
                                     <XAxis dataKey="fixed_date_MMHH" />
                                     <YAxis dataKey="close" domain={[]} />
                                     <Tooltip content={customTooltip} />
-                                    <Area type="monotoneX" dataKey="close" stroke={ profile?.regularMarketChange >= 0 ? '#499642' : '#992e2e' } fillOpacity={1} fill="url(#colorUv)" min={getMin()} />
+                                    <Area type="monotoneX" dataKey="close" stroke={ profile?.regularMarketChange >= 0 ? '#499642' : '#992e2e' } fillOpacity={1} fill="url(#colorUv)" />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>
