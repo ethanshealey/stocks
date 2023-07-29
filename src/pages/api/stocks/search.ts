@@ -8,7 +8,7 @@ export default function handler(
   res: NextApiResponse<any>
 ) {
 
-    const q = req.query.query
+    const q: any = req.query.query
 
     if(q) {
       const headers: HeadersInit = new Headers()
@@ -16,7 +16,7 @@ export default function handler(
       headers.set( 'X-RapidAPI-Key', process.env.X_RAPIDAPI_KEY || '')
       headers.set( 'X-RapidAPI-Host', process.env.X_RAPIDAPI_HOST_ALPHA || '')
 
-      getDocs(query(collection(db, "Search"), where("query", "==", q))).then((results) => {
+      getDocs(query(collection(db, "Search"), where("query", "==", q.toLowerCase()))).then((results) => {
         // IF the query has been saved in db and isnt expired, serve the saved results
         if(results.docs.length) { 
           const addedDate = new Date(results.docs[0].data().date).getTime()
@@ -52,7 +52,7 @@ export default function handler(
           addDoc(collection(db, "Search"), {
             date: new Date(),
             results: cleanSymbolList,
-            query: q
+            query: q.toLowerCase()
           })
 
           res.status(200).json({ "results": cleanSymbolList})

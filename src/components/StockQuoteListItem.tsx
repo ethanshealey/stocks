@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai'
 import { toast } from 'react-hot-toast'
+import Link from 'next/link'
 
 type StockQuoteListItemProps = {
     stock: any,
@@ -49,16 +50,18 @@ const StockQuoteListItem = ({ stock, isInList, noBottomBorder }: StockQuoteListI
             }
            
         </div>
-        <div className='stock-quote-list-item-left'>
-            <h1>{stock.symbol}</h1>
-            <p>{stock.longName}</p>
-        </div>
-        <div className='stock-quote-list-item-right'>
-            <div className='stock-quote-price'>
-                <h3 className='stock-quote-list-item-price'>{stock.price.toFixed(2)}</h3>
-                <p className={stock.change > 0 ? 'up' : 'down'} onClick={() => setChangeType(t => !t)}>{changeType ? stock.change.toFixed(2) : stock.changePercent.toFixed(2) + '%'}</p>
+        <Link className='stock-quote-list-item-link' href={`/stocks/${stock.symbol}`}>
+            <div className='stock-quote-list-item-left'>
+                <h1>{stock.symbol}</h1>
+                <p>{stock.longName}</p>
             </div>
-        </div>
+            <div className='stock-quote-list-item-right'>
+                <div className='stock-quote-price'>
+                    <h3 className='stock-quote-list-item-price'>{stock.price.toFixed(2)}</h3>
+                    <p className={stock.change > 0 ? 'up' : 'down'} onClick={() => setChangeType(t => !t)}>{changeType ? stock.change.toFixed(2) : stock.changePercent.toFixed(2) + '%'}</p>
+                </div>
+            </div>
+        </Link>
     </div>
   )
 }
