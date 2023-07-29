@@ -15,6 +15,7 @@ const Login = () => {
   const [ user, setUser ] = usePersistentState('user', undefined)
 
   const login = () => {
+    setIsLoading(true)
     fetch('/api/auth/login', {
       method: 'POST',
       headers: {
@@ -37,6 +38,7 @@ const Login = () => {
       }
       else
         console.log(JSON.parse(data.error))
+      setIsLoading(false)
     }).catch((e) => {
       console.log(e)
     })
