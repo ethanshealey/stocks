@@ -23,7 +23,6 @@ export default function Home({ user }: HomeProps) {
       loadStocks()
       loadNews()
     }
-    else location.reload()
   }, [user])
 
   const loadStocks = () => {
