@@ -11,7 +11,7 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-    
+    console.log('checking auth')
     onAuthStateChanged(auth, (user) => {
         if(user) {
           const q = query(collection(db, "Users"), where("email", "==", user.email))

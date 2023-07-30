@@ -12,16 +12,17 @@ type HomeProps = {
 
 export default function Home({ user }: HomeProps) {
 
-  const [ stocks, setStocks ] = useState([])
-  const [ news, setNews ] = useState([])
-  const [ isLoadingStocks, setIsLoadingStocks ] = useState(false)
-  const [ isLoadingNews, setIsLoadingNews ] = useState(false)
-  const [ isLoadingSearch, setIsLoadingSearch ] = useState(false)
+  const [ stocks, setStocks ] = useState<any>([])
+  const [ news, setNews ] = useState<any>([])
+  const [ isLoadingStocks, setIsLoadingStocks ] = useState<boolean>(false)
+  const [ isLoadingNews, setIsLoadingNews ] = useState<boolean>(false)
+  const [ isLoadingSearch, setIsLoadingSearch ] = useState<boolean>(false)
 
   useEffect(() => {
+    console.log(user)
     if(user) {
-      loadStocks()
-      loadNews()
+        loadStocks()
+        loadNews()
     }
   }, [user])
 
@@ -35,7 +36,7 @@ export default function Home({ user }: HomeProps) {
       else
         userStockList = ['SPY', 'AAPL', 'GOOG', 'RIVN', 'MSFT']
         fetch('/api/stocks/quotes?symbols=' + userStockList.join(',')).then((res) => res.json()).then((data) => {
-          setStocks((_): any => data)
+          setStocks((_: any) => data)
           setIsLoadingStocks(false)
         })
     })
@@ -44,7 +45,7 @@ export default function Home({ user }: HomeProps) {
   const loadNews = () => {
     setIsLoadingNews(true)
     fetch('/api/stocks/news').then((res) => res.json()).then((data) => {
-      setNews((_): any => [ ...data ])
+      setNews((_: any) => [ ...data ])
       setIsLoadingNews(false)
     })
   }
@@ -54,7 +55,7 @@ export default function Home({ user }: HomeProps) {
     fetch(`/api/stocks/search?query=${query}`).then((res) => res.json()).then((data) => {
       console.log(data.results)
       fetch(`/api/stocks/quotes?symbols=${data.results}`).then((res) => res.json()).then((r) => {
-        setStocks((old): any => r)
+        setStocks((_: any) => r)
         setIsLoadingSearch(false)
       })
     })

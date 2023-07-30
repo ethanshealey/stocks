@@ -17,13 +17,13 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     fetch('/api/auth/checkAuth').then((res) => res.json()).then((data) => {
       if(!data.user) {
-        if(!['/auth/login', '/auth/register'].includes(router.pathname))
+        if(!['/login', '/register'].includes(router.pathname))
           router.push('/login')
       }
       else {
         const u = JSON.parse(data.user)
         setUser((_: any) => u)
-        if(['/auth/login', '/auth/register'].includes(router.pathname))
+        if(['/login', '/register'].includes(router.pathname))
           router.push('/')
       }
     })

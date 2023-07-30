@@ -55,7 +55,6 @@ export default function handler(
                     guid: data[i].guid
                 })
             }, (error: any) => {
-                console.error('failed to find image...')
                 newsItems.push({
                     image: 'https://s.yimg.com/cv/apiv2/social/images/yahoo_default_logo.png',
                     title: data[i].title,

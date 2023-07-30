@@ -1,5 +1,5 @@
 'use client'
-import { use, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import Image from 'next/image'
 import usePersistentState from '@/hooks/usePersistentState'
 import { useRouter } from 'next/router';
@@ -12,8 +12,6 @@ const Login = () => {
   const [ password, setPassword ] = useState('')
   const [ isLoading, setIsLoading ] = useState(false)
 
-  const [ user, setUser ] = usePersistentState('user', undefined)
-
   const login = () => {
     setIsLoading(true)
     fetch('/api/auth/login', {
@@ -23,8 +21,7 @@ const Login = () => {
       },
       body: JSON.stringify({ "email": email, "password": password })
     }).then((res) => res.json()).then((data) => {
-      if(data.user) {
-        setUser((_: any) => data.user)
+      if(data === "Login was a success") {
         toast.success('Logged In Successfully!',
           {
             style: {
@@ -35,6 +32,7 @@ const Login = () => {
           }
         );
         router.push('/')
+        location.reload()
       }
       else
         console.log(JSON.parse(data.error))
