@@ -2,7 +2,7 @@ import React from 'react'
 import StockQuoteListItem from './StockQuoteListItem'
 
 type StockQuoteListProps = {
-  stocks: any[],
+  stocks: any[] | undefined,
   userStocks: string[]
 }
 
