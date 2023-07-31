@@ -15,14 +15,17 @@ export default function App({ Component, pageProps }: AppProps) {
   const [ user, setUser ] = useState()
 
   useEffect(() => {
-    fetch('/api/auth/checkAuth').then((res) => res.json()).then((data) => {
+    setIsLoading(true)
+    fetch('/api/auth/checkAuth').then((res) => res.json()).then(async (data) => {
       if(!data.user) {
         if(!['/login', '/register'].includes(router.pathname))
           router.push('/login')
+        setIsLoading(false)
       }
       else {
         const u = JSON.parse(data.user)
         setUser((_: any) => u)
+        setIsLoading(false)
         if(['/login', '/register'].includes(router.pathname))
           router.push('/')
       }
@@ -32,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Toaster position='bottom-center' />
-      <Component {...pageProps} user={user} />
+      { isLoading ? "Loading..." : <Component {...pageProps} user={user} /> }
     </>
   )
 }

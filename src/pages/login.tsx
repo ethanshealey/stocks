@@ -32,7 +32,6 @@ const Login = () => {
           }
         );
         router.push('/')
-        location.reload()
       }
       else
         console.log(JSON.parse(data.error))

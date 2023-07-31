@@ -5,6 +5,7 @@ import StockQuoteList from '@/components/StockQuoteList';
 import QuoteSearch from '@/components/QuoteSearch';
 import Spinner from '@/components/Spinner';
 import NewsList from '@/components/NewsList';
+import { toast } from 'react-hot-toast';
 
 type HomeProps = {
   user: any
@@ -12,8 +13,9 @@ type HomeProps = {
 
 export default function Home({ user }: HomeProps) {
 
-  const [ stocks, setStocks ] = useState<any>([])
-  const [ news, setNews ] = useState<any>([])
+  const [ MONTHLYQUOTAERROR, setMONTHLYQUOTAERROR ] = useState(false)
+  const [ stocks, setStocks ] = useState<any[]>()
+  const [ news, setNews ] = useState<any[]>([])
   const [ isLoadingStocks, setIsLoadingStocks ] = useState<boolean>(false)
   const [ isLoadingNews, setIsLoadingNews ] = useState<boolean>(false)
   const [ isLoadingSearch, setIsLoadingSearch ] = useState<boolean>(false)
@@ -28,10 +30,20 @@ export default function Home({ user }: HomeProps) {
 
   const loadStocks = () => {
     setIsLoadingStocks(true)
-    let userStockList = []
+    let userStockList: any[] = []
     // Get updated list of user stocks
     fetch('/api/stocks/getStockList').then((res) => res.json()).then((data) => {
-      if(data.stocks.length)
+      if(data?.message === 'Exceeded monthly quota, please come back later :(') {
+        setMONTHLYQUOTAERROR(true)
+        toast.error(data?.message, {
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        })
+      }
+      else if(data.stocks.length)
         userStockList = [ ...data.stocks ]
       else
         userStockList = ['SPY', 'AAPL', 'GOOG', 'RIVN', 'MSFT']
@@ -61,7 +73,7 @@ export default function Home({ user }: HomeProps) {
     })
   } 
 
-  return (
+  return MONTHLYQUOTAERROR ? <></> : (
     <div id="home-wrapper">
       <header id="home-header">
         <div id="home-header-left">

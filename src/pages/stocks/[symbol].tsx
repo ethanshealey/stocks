@@ -5,9 +5,10 @@ import Spinner from '@/components/Spinner'
 import Link from 'next/link'
 import { BsChevronRight, BsArrowUp, BsArrowDown } from 'react-icons/bs'
 import { ResponsiveContainer } from 'recharts'
-import OneDayChart from '@/components/OneDayChart'
+import StockChart from '@/components/StockChart'
 import sleep from '@/helpers/sleep'
 import getLatestDate from '@/helpers/getLatestDate'
+import PeriodSwitcher from '@/components/PeriodSwitcher'
 
 const StockDetails = () => {
 
@@ -18,14 +19,13 @@ const StockDetails = () => {
     const [ history, setHistory ] = useState<any[]>([])
     const [ profile, setProfile ] = useState<any>()
 
-    const [ period, setPeriod ] = useState(0) // 0 -> 1 day | 1 -> 5 Days | 2 -> 1 Month | 3 -> 6 Months | 4 -> YTD | 5 -> 1Y
-
-    const [ oneDay, setOneDay ] = useState<any[]>([])
+    const [ stockData, setStockData ] = useState<any[]>([])
+    const [ period, setPeriod ] = useState<string>('')
 
     useEffect(() => {
         setIsLoading(true)
         if(symbol) {
-            // fetch(`/api/stocks/history?symbol=${symbol}&interval=15m`).then((res) => res.json()).then((data) => {
+            // fetch(`/api/stocks/history?symbol=${symbol}&interval=5m`).then((res) => res.json()).then((data) => {
             //     console.log(data)
             //     setHistory(data.history)
             //     setProfile(data.profile)
@@ -5730,16 +5730,45 @@ const StockDetails = () => {
             
             setHistory((h: any) => testObj.history)
             setProfile((p: any) => testObj.profile)
-
-            handleOneDay()
-
             setIsLoading(false)
         }
     }, [symbol, router.isReady])
 
     useEffect(() => {
-        if(oneDay) handleOneDay()
+        if(stockData) handleOneDay()
     }, [history])
+
+    useEffect(() => {
+      if(period === '1d') handleOneDay()
+      else if(period === '5d') handleFiveDay()
+      else if(period === '1m') handleOneMonth()
+
+      /**
+       * At this point, will need to reload history due to 5m
+       * interval not going back enough to handle 6m+
+       */
+      else if(period === '6m') handleSixMonth()
+      else if(period === '1y') handleOneYear()
+      else if(period === 'max') handleMax()
+    }, [period, history])
+
+    const handlePeriodChange = (p: string) => {
+      if(['1d', '5d', '1m'].includes(p) && ['6m', 'ytd', '1y', 'max'].includes(period)) {
+        // load 5m data
+        fetch(`/api/stocks/history?symbol=${symbol}&interval=5m`).then((res) => res.json()).then((data) => {
+          setHistory((_: any) => data.history)
+        })
+      }
+      else if(['6m', 'ytd', '1y', 'max'].includes(p) && ['1d', '5d', '1m'].includes(period)) {
+        // load 1d data
+        fetch(`/api/stocks/history?symbol=${symbol}&interval=1d`).then((res) => res.json()).then((data) => {
+          console.log(data.history)
+          setHistory((_: any) => data.history)
+        })
+      }
+
+      setPeriod(p)
+    }
 
     const handleOneDay: any = async () => {
         const latestDate: Date = getLatestDate(history)
@@ -5749,7 +5778,51 @@ const StockDetails = () => {
                    (latestDate.getMonth() === td.getMonth()) &&
                    (latestDate.getFullYear() === td.getFullYear())
         })
-        setOneDay(oneDayData)
+        setStockData(oneDayData)
+    }
+
+    const handleFiveDay: any = async () => {
+      const latestDate: Date = getLatestDate(history)
+        const fiveDayData = history.filter((h) => {
+            const td = new Date(h.date_utc * 1000)
+            td.setDate(td.getDate() + 5)
+            return td >= latestDate
+        })
+        setStockData(fiveDayData)
+    }
+
+    const handleOneMonth: any = async () => {
+      const latestDate: Date = getLatestDate(history)
+        const oneMonthData = history.filter((h) => {
+            const td = new Date(h.date_utc * 1000)
+            td.setMonth(td.getMonth() + 1)
+            return td >= latestDate
+        })
+        setStockData(oneMonthData)
+    }
+
+    const handleSixMonth: any = async () => {
+      const latestDate: Date = getLatestDate(history)
+        const sixMonthData = history.filter((h) => {
+            const td = new Date(h.date_utc * 1000)
+            td.setMonth(td.getMonth() + 6)
+            return td >= latestDate
+        })
+        setStockData(sixMonthData)
+    }
+
+    const handleOneYear: any = async () => {
+      const latestDate: Date = getLatestDate(history)
+        const ytdData = history.filter((h) => {
+            const td = new Date(h.date_utc * 1000)
+            td.setFullYear(td.getFullYear() + 1)
+            return td >= latestDate
+        })
+        setStockData(ytdData)
+    }
+
+    const handleMax: any = async () => {
+      setStockData(history)
     }
 
     return (
@@ -5777,8 +5850,9 @@ const StockDetails = () => {
                             <div className={`stock-price-change-percent ${profile?.regularMarketChangePercent >= 0 ? 'up-percent' : 'down-percent'}`}>{ profile?.regularMarketChangePercent >= 0 ? <BsArrowUp /> : <BsArrowDown /> }&nbsp;{ profile?.regularMarketChangePercent.toFixed(2) }%</div>
                             <div className={`stock-price-change-dollar ${profile?.regularMarketChange >= 0 ? 'up-dollar' : 'down-dollar'}`}>{ profile?.regularMarketChange >= 0 ? '+' : '-' }{ profile?.regularMarketChange.toFixed(2) } Today</div>
                         </div>
+                        <PeriodSwitcher onChange={(p: string) => handlePeriodChange(p)} />
                         <div className='stock-graph'>
-                            <OneDayChart history={oneDay} profile={profile} />
+                            <StockChart history={stockData} profile={profile} />
                         </div>
                     </div>
                 )

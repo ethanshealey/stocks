@@ -1,11 +1,11 @@
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
-type OneDayChartProps = {
+type StockChartProps = {
     history: any,
     profile: any
 }
 
-const OneDayChart = ({ history, profile }: OneDayChartProps) => {
+const StockChart = ({ history, profile }: StockChartProps) => {
 
     const customTooltip = ({ active, payload, label }: any) => {
         if(active && payload && payload.length) {
@@ -29,13 +29,13 @@ const OneDayChart = ({ history, profile }: OneDayChartProps) => {
                 <stop offset="95%" stopColor={ '#050505' } stopOpacity={0}/>
             </linearGradient>
             </defs>
-            <XAxis dataKey="fixed_date_MMHH" />
+            <XAxis dataKey="fixed_date" />
             <YAxis dataKey="close" domain={[]} />
             <Tooltip content={customTooltip} />
-            <Area type="monotoneX" dataKey="close" stroke={ profile?.regularMarketChange >= 0 ? '#499642' : '#992e2e' } fillOpacity={1} fill="url(#colorUv)" />
+            <Area type="monotone" dataKey="close" stroke={ profile?.regularMarketChange >= 0 ? '#499642' : '#992e2e' } fillOpacity={1} fill="url(#colorUv)" />
         </AreaChart>
     </ResponsiveContainer>
   )
 }
 
-export default OneDayChart
+export default StockChart

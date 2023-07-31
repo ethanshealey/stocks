@@ -426,8 +426,24 @@ input.nosubmit {
     }
 }
 
+#period-switcher {
+    margin-bottom: 25px;
+    button {
+        background-color: $background;
+        border: none;
+        border-bottom: 3px solid $background;
+        padding: 10px;
+        color: $text;
+        cursor: pointer;
+    }
+}
+
+.period-switcher-button-active { 
+    border-bottom: 3px solid $text !important;
+}
+
 .stock-wrapper {
-    min-height: calc(100vh - 135px);
+    min-height: calc(100vh - 135px) !important;
     width: 96vw;
     max-width: 2000px;
     display: flex;
