@@ -1,4 +1,5 @@
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import convertLargeNumber from '@/helpers/convertLargeNumber'
 
 type StockChartProps = {
     history: any,
@@ -13,7 +14,7 @@ const StockChart = ({ history, profile }: StockChartProps) => {
                 <div className='tooltip'>
                     <h3>${ payload[0].payload.close.toFixed(2) }</h3>
                     <p>{ payload[0].payload.fixed_date }</p>
-                    <p>Volume: { payload[0].payload.volume }</p>
+                    <p>Volume: { convertLargeNumber(payload[0].payload.volume) }</p>
                 </div>
             )
         }
@@ -29,10 +30,10 @@ const StockChart = ({ history, profile }: StockChartProps) => {
                 <stop offset="95%" stopColor={ '#050505' } stopOpacity={0}/>
             </linearGradient>
             </defs>
-            <XAxis dataKey="fixed_date" />
-            <YAxis dataKey="close" domain={[]} />
+            <XAxis dataKey="fixed_date" stroke="#def2de" />
+            <YAxis dataKey="close" domain={[]} stroke="#def2de" />
             <Tooltip content={customTooltip} />
-            <Area type="monotone" dataKey="close" stroke={ profile?.regularMarketChange >= 0 ? '#499642' : '#992e2e' } fillOpacity={1} fill="url(#colorUv)" />
+            <Area type="monotone" animationDuration={50} animationEasing='linear' dataKey="close" stroke={ profile?.regularMarketChange >= 0 ? '#499642' : '#992e2e' } fillOpacity={1} fill="url(#colorUv)" />
         </AreaChart>
     </ResponsiveContainer>
   )

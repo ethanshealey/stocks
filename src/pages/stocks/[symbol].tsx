@@ -9,6 +9,7 @@ import StockChart from '@/components/StockChart'
 import sleep from '@/helpers/sleep'
 import getLatestDate from '@/helpers/getLatestDate'
 import PeriodSwitcher from '@/components/PeriodSwitcher'
+import Header from '@/components/Header'
 
 const StockDetails = () => {
 
@@ -5742,11 +5743,6 @@ const StockDetails = () => {
       if(period === '1d') handleOneDay()
       else if(period === '5d') handleFiveDay()
       else if(period === '1m') handleOneMonth()
-
-      /**
-       * At this point, will need to reload history due to 5m
-       * interval not going back enough to handle 6m+
-       */
       else if(period === '6m') handleSixMonth()
       else if(period === '1y') handleOneYear()
       else if(period === 'max') handleMax()
@@ -5762,7 +5758,6 @@ const StockDetails = () => {
       else if(['6m', 'ytd', '1y', 'max'].includes(p) && ['1d', '5d', '1m'].includes(period)) {
         // load 1d data
         fetch(`/api/stocks/history?symbol=${symbol}&interval=1d`).then((res) => res.json()).then((data) => {
-          console.log(data.history)
           setHistory((_: any) => data.history)
         })
       }
@@ -5827,11 +5822,7 @@ const StockDetails = () => {
 
     return (
         <div id="home-wrapper">
-            <header id="home-header">
-                <div id="home-header-left">
-                <Image src={'/logo1.png'} width='50' height='50' alt='logo' />&nbsp;<h1>STOCKS</h1>&nbsp; <span>ethanshealey.com</span>
-                </div>
-            </header>
+            <Header />
             {
                 isLoading ? (
                     <div id='news-spinner'>
@@ -5853,6 +5844,15 @@ const StockDetails = () => {
                         <PeriodSwitcher onChange={(p: string) => handlePeriodChange(p)} />
                         <div className='stock-graph'>
                             <StockChart history={stockData} profile={profile} />
+                        </div>
+                        <div className='profile'>
+                          <div className='about'>
+                            <h1>About</h1>
+                            <p>{ profile?.longBusinessSummary }</p>
+                          </div>
+                          <div className='news'>
+                            <h1>News</h1>
+                          </div>
                         </div>
                     </div>
                 )

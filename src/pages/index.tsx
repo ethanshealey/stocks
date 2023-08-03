@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import Image from 'next/image'
 import { AiOutlineSearch } from 'react-icons/ai';
 import StockQuoteList from '@/components/StockQuoteList';
 import QuoteSearch from '@/components/QuoteSearch';
 import Spinner from '@/components/Spinner';
 import NewsList from '@/components/NewsList';
 import { toast } from 'react-hot-toast';
+import Header from '@/components/Header';
 
 type HomeProps = {
   user: any
@@ -75,11 +75,7 @@ export default function Home({ user }: HomeProps) {
 
   return MONTHLYQUOTAERROR ? <></> : (
     <div id="home-wrapper">
-      <header id="home-header">
-        <div id="home-header-left">
-          <Image src={'/logo1.png'} width='50' height='50' alt='logo' />&nbsp;<h1>STOCKS</h1>&nbsp; <span>ethanshealey.com</span>
-        </div>
-      </header>
+      <Header />
       <div id="home-body">
         <div id="stock-list">
           <h1 className='symbol-header'>Symbols</h1>
