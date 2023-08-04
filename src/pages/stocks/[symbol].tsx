@@ -16,7 +16,8 @@ const StockDetails = () => {
     const router = useRouter()
     const { symbol } = router.query
 
-    const [ isLoading, setIsLoading ] = useState(false)
+    const [ isLoadingHistory, setIsLoadingHistory ] = useState(false)
+    const [ isLoadingProfile, setIsLoadingProfile ] = useState(false)
     const [ history, setHistory ] = useState<any[]>([])
     const [ profile, setProfile ] = useState<any>()
 
@@ -24,13 +25,18 @@ const StockDetails = () => {
     const [ period, setPeriod ] = useState<string>('')
 
     useEffect(() => {
-        setIsLoading(true)
+        setIsLoadingHistory(true)
+        setIsLoadingProfile(true)
         if(symbol) {
             // fetch(`/api/stocks/history?symbol=${symbol}&interval=5m`).then((res) => res.json()).then((data) => {
             //     console.log(data)
             //     setHistory(data.history)
+            //     setIsLoadingHistory(false)
+            // })
+            // fetch(`/api/stocks/profile?symbol=${symbol}`).then((res) => res.json()).then((data) => {
+            //     console.log(data)
             //     setProfile(data.profile)
-            //     setIsLoading(false)
+            //     setIsLoadingProfile(false)
             // })
             
             const testObj = {
@@ -5731,7 +5737,8 @@ const StockDetails = () => {
             
             setHistory((h: any) => testObj.history)
             setProfile((p: any) => testObj.profile)
-            setIsLoading(false)
+            setIsLoadingHistory(false)
+            setIsLoadingProfile(false)
         }
     }, [symbol, router.isReady])
 
@@ -5744,18 +5751,20 @@ const StockDetails = () => {
       else if(period === '5d') handleFiveDay()
       else if(period === '1m') handleOneMonth()
       else if(period === '6m') handleSixMonth()
+      else if(period === 'ytd') handleYTD()
       else if(period === '1y') handleOneYear()
+      else if(period === '5y') handleFiveYear()
       else if(period === 'max') handleMax()
     }, [period, history])
 
     const handlePeriodChange = (p: string) => {
-      if(['1d', '5d', '1m'].includes(p) && ['6m', 'ytd', '1y', 'max'].includes(period)) {
+      if(['1d', '5d', '1m'].includes(p) && ['6m', 'ytd', '1y', '5y', 'max'].includes(period)) {
         // load 5m data
         fetch(`/api/stocks/history?symbol=${symbol}&interval=5m`).then((res) => res.json()).then((data) => {
           setHistory((_: any) => data.history)
         })
       }
-      else if(['6m', 'ytd', '1y', 'max'].includes(p) && ['1d', '5d', '1m'].includes(period)) {
+      else if(['6m', 'ytd', '1y', '5y', 'max'].includes(p) && ['1d', '5d', '1m'].includes(period)) {
         // load 1d data
         fetch(`/api/stocks/history?symbol=${symbol}&interval=1d`).then((res) => res.json()).then((data) => {
           setHistory((_: any) => data.history)
@@ -5806,11 +5815,30 @@ const StockDetails = () => {
         setStockData(sixMonthData)
     }
 
+    const handleYTD: any = async () => {
+      const latestDate: Date = getLatestDate(history)
+        const ytdData = history.filter((h) => {
+            const td = new Date(h.date_utc * 1000)
+            return td.getFullYear() === latestDate.getFullYear()
+        })
+        setStockData(ytdData)
+    }
+
     const handleOneYear: any = async () => {
       const latestDate: Date = getLatestDate(history)
         const ytdData = history.filter((h) => {
             const td = new Date(h.date_utc * 1000)
             td.setFullYear(td.getFullYear() + 1)
+            return td >= latestDate
+        })
+        setStockData(ytdData)
+    }
+
+    const handleFiveYear: any = async () => {
+      const latestDate: Date = getLatestDate(history)
+        const ytdData = history.filter((h) => {
+            const td = new Date(h.date_utc * 1000)
+            td.setFullYear(td.getFullYear() + 5)
             return td >= latestDate
         })
         setStockData(ytdData)
@@ -5824,7 +5852,7 @@ const StockDetails = () => {
         <div id="home-wrapper">
             <Header />
             {
-                isLoading ? (
+                isLoadingHistory || isLoadingProfile ? (
                     <div id='news-spinner'>
                         <Spinner />
                     </div>
@@ -5843,7 +5871,7 @@ const StockDetails = () => {
                         </div>
                         <PeriodSwitcher onChange={(p: string) => handlePeriodChange(p)} />
                         <div className='stock-graph'>
-                            <StockChart history={stockData} profile={profile} />
+                            <StockChart history={stockData} profile={profile} period={period} />
                         </div>
                         <div className='profile'>
                           <div className='about'>

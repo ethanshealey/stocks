@@ -29,19 +29,20 @@ export default function handler(
                 val['fixed_date_MMHH'] = date.split(' ')[3]
                 history.push(val)
             }
-            fetch(`https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/${sym}/asset-profile`, {
-                headers: headers
-            }).then((res) => res.json()).then((data) => {
-                const profile = data.assetProfile
-                fetch(`https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/${sym}`, {
-                    headers: headers
-                }).then((res) => res.json()).then((data) => {
-                    res.status(200).json({
-                        history: history,
-                        profile: { ...profile, ...data[0] }
-                    })
-                })
-            })
+            res.status(200).json({ history: history })
+            // fetch(`https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/${sym}/asset-profile`, {
+            //     headers: headers
+            // }).then((res) => res.json()).then((data) => {
+            //     const profile = data.assetProfile
+            //     fetch(`https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/${sym}`, {
+            //         headers: headers
+            //     }).then((res) => res.json()).then((data) => {
+            //         res.status(200).json({
+            //             history: history,
+            //             profile: { ...profile, ...data[0] }
+            //         })
+            //     })
+            // })
         })
     }
     else {

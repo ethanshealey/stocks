@@ -33,24 +33,28 @@ export default function Home({ user }: HomeProps) {
     let userStockList: any[] = []
     // Get updated list of user stocks
     fetch('/api/stocks/getStockList').then((res) => res.json()).then((data) => {
-      if(data?.message === 'Exceeded monthly quota, please come back later :(') {
-        setMONTHLYQUOTAERROR(true)
-        toast.error(data?.message, {
-          style: {
-            borderRadius: '10px',
-            background: '#333',
-            color: '#fff',
-          },
-        })
-      }
-      else if(data.stocks.length)
+      if(data.stocks.length)
         userStockList = [ ...data.stocks ]
-      else
+      else 
         userStockList = ['SPY', 'AAPL', 'GOOG', 'RIVN', 'MSFT']
-        fetch('/api/stocks/quotes?symbols=' + userStockList.join(',')).then((res) => res.json()).then((data) => {
+
+      fetch('/api/stocks/quotes?symbols=' + userStockList.join(',')).then((res) => res.json()).then((data) => {
+        if(data?.message === 'Exceeded monthly quota, please come back later :(') {
+          setMONTHLYQUOTAERROR(true)
+          setIsLoadingStocks(false)
+          toast.error(data?.message, {
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          })
+        }
+        else {
           setStocks((_: any) => data)
           setIsLoadingStocks(false)
-        })
+        }
+      })
     })
   }
 
@@ -73,7 +77,7 @@ export default function Home({ user }: HomeProps) {
     })
   } 
 
-  return MONTHLYQUOTAERROR ? <></> : (
+  return (
     <div id="home-wrapper">
       <Header />
       <div id="home-body">
@@ -81,7 +85,8 @@ export default function Home({ user }: HomeProps) {
           <h1 className='symbol-header'>Symbols</h1>
           <QuoteSearch search={search} loadDefault={loadStocks} />
           {
-            isLoadingStocks || isLoadingSearch ? <div id='home-spinner'><Spinner /></div> : <StockQuoteList stocks={stocks} userStocks={user?.stocks} />
+            isLoadingStocks || isLoadingSearch  ? MONTHLYQUOTAERROR ? <></> :
+              <div id='home-spinner'><Spinner /></div> : <StockQuoteList stocks={stocks} userStocks={user?.stocks} />
           }
         </div>
         <div id="news">

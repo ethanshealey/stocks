@@ -11,7 +11,7 @@ const PeriodSwitcher = ({ onChange }: PeriodSwitcherProps) => {
     } 
 
     const reset = () => {
-        ['1d', '5d', '1m', '6m', 'ytd', '1y', 'max'].forEach((id) => {
+        ['1d', '5d', '1m', '6m', 'ytd', '1y', '5y', 'max'].forEach((id) => {
             document.getElementById(id)?.classList.remove('period-switcher-button-active')
         })
     }
@@ -22,7 +22,9 @@ const PeriodSwitcher = ({ onChange }: PeriodSwitcherProps) => {
         <button id='5d' onClick={() => handleClick('5d')}>5D</button>
         <button id='1m' onClick={() => handleClick('1m')}>1M</button>
         <button id='6m' onClick={() => handleClick('6m')}>6M</button>
+        <button id='ytd' onClick={() => handleClick('ytd')}>YTD</button>
         <button id='1y' onClick={() => handleClick('1y')}>1Y</button>
+        <button id='5y' onClick={() => handleClick('5y')}>5Y</button>
         <button id='max' onClick={() => handleClick('max')}>MAX</button>
     </div>
   )
