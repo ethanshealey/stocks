@@ -22,4 +22,4 @@ X_RAPIDAPI_HOST_ALPHA=<RAPID API ALPHA VANTAGE HOST>
 
 <sup>Note: You will need to create an application using Firebase with Authentication and Firebase Storage</sup>
 
-## This project is a WIP
+### This project is a WIP
