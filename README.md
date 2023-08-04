@@ -19,4 +19,7 @@ X_RAPIDAPI_HOST=<RAPID APY YAHOO FINANCE HOST>
 X_RAPIDAPI_HOST_ALPHA=<RAPID API ALPHA VANTAGE HOST>
 ```
 <sup>Note: you will need to get your API key and Host values from rapidapi.com</sup>
+
 <sup>Note: You will need to create an application using Firebase with Authentication and Firebase Storage</sup>
+
+## This project is a WIP
