@@ -17,6 +17,7 @@ export default function handler(
           const q = query(collection(db, "Users"), where("email", "==", user.email))
           getDocs(q).then((qs) => {
             const u = qs.docs[0].data()
+            console.log('hmmm')
             res.status(200).json({ 'user': JSON.stringify({ ...u, "extra": user }), 'error': '' })
           })
         }

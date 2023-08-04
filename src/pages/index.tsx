@@ -6,12 +6,15 @@ import Spinner from '@/components/Spinner';
 import NewsList from '@/components/NewsList';
 import { toast } from 'react-hot-toast';
 import Header from '@/components/Header';
+import { useRouter } from 'next/router';
 
 type HomeProps = {
   user: any
 }
 
 export default function Home({ user }: HomeProps) {
+
+  const router = useRouter()
 
   const [ MONTHLYQUOTAERROR, setMONTHLYQUOTAERROR ] = useState(false)
   const [ stocks, setStocks ] = useState<any[]>()
@@ -26,7 +29,7 @@ export default function Home({ user }: HomeProps) {
         loadStocks()
         loadNews()
     }
-  }, [user])
+  }, [user, router])
 
   const loadStocks = () => {
     setIsLoadingStocks(true)
