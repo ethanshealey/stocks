@@ -36,6 +36,7 @@ export default function Home({ user }: HomeProps) {
     let userStockList: any[] = []
     // Get updated list of user stocks
     fetch('/api/stocks/getStockList').then((res) => res.json()).then((data) => {
+      
       if(data.stocks.length)
         userStockList = [ ...data.stocks ]
       else 

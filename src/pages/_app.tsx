@@ -1,7 +1,5 @@
 'use client'
-import { auth } from '@/firebase';
 import '@/styles/globals.scss'
-import { onAuthStateChanged } from 'firebase/auth';
 import type { AppProps } from 'next/app';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -24,13 +22,14 @@ export default function App({ Component, pageProps }: AppProps) {
       }
       else {
         const u = JSON.parse(data.user)
+        console.log(u)
         setUser((_: any) => u)
         setIsLoading(false)
         if(['/login', '/register'].includes(router.pathname))
           router.push('/')
       }
     })
-  }, [])
+  }, [router])
 
   return (
     <>
