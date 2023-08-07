@@ -17,7 +17,7 @@ export default function handler(
     signInWithEmailAndPassword(auth, email, password).then((uc) => {
         res.status(200).json("Login was a success")
     }).catch((error: any) => {
-        console.log(error)
+        console.log('/api/auth/login ERROR:', error)
         res.status(200).json({ 'user': undefined, 'error': JSON.stringify(error) })
     })
 }

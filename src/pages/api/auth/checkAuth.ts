@@ -18,6 +18,7 @@ export default function handler(
           getDocs(q).then((qs) => {
             const u = qs.docs[0].data()
             console.log('hmmm')
+            console.log(u)
             res.status(200).json({ 'user': JSON.stringify({ ...u, "extra": user }), 'error': '' })
           })
         }
