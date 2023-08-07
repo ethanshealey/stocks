@@ -14,7 +14,7 @@ export default function handler(
     const email = req.body.email
     const password = req.body.password
 
-    createUserWithEmailAndPassword(auth, email, password).then((uc) => {
+    createUserWithEmailAndPassword(auth, email, password).then((uc: any) => {
 
         addDoc(collection(db, "Users"), {
           email: email,
