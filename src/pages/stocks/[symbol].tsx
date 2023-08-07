@@ -5646,7 +5646,7 @@ const StockDetails = () => {
                     "open": 456.92,
                     "high": 456.92,
                     "low": 456.92,
-                    "close": 456.92,
+                    "close": 454.92,
                     "volume": 0,
                     "fixed_date": "Jul 28 2023 16:00",
                     "fixed_date_MMHH": "16:00"
@@ -5848,6 +5848,8 @@ const StockDetails = () => {
       setStockData(history)
     }
 
+    const isDown = () => history[0]?.close > history?.slice(-1)[0]?.close
+
     return (
         <div id="home-wrapper">
             <Header />
@@ -5866,8 +5868,8 @@ const StockDetails = () => {
                         </h1>
                         <div className='stock-price'>
                             <h1 className='stock-price-current'>${ profile?.regularMarketPrice }</h1>
-                            <div className={`stock-price-change-percent ${profile?.regularMarketChangePercent >= 0 ? 'up-percent' : 'down-percent'}`}>{ profile?.regularMarketChangePercent >= 0 ? <BsArrowUp /> : <BsArrowDown /> }&nbsp;{ profile?.regularMarketChangePercent.toFixed(2) }%</div>
-                            <div className={`stock-price-change-dollar ${profile?.regularMarketChange >= 0 ? 'up-dollar' : 'down-dollar'}`}>{ profile?.regularMarketChange >= 0 ? '+' : '-' }{ profile?.regularMarketChange.toFixed(2) } Today</div>
+                            <div className={`stock-price-change-percent ${ isDown() ? 'up-percent' : 'down-percent'}`}>{ isDown() ? <BsArrowUp /> : <BsArrowDown /> }&nbsp;{ profile?.regularMarketChangePercent.toFixed(2) }%</div>
+                            <div className={`stock-price-change-dollar ${ isDown() ? 'up-dollar' : 'down-dollar'}`}>{ isDown() ? '+' : '-' }{ profile?.regularMarketChange.toFixed(2) } Today</div>
                         </div>
                         <PeriodSwitcher onChange={(p: string) => handlePeriodChange(p)} />
                         <div className='stock-graph'>

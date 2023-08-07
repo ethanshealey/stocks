@@ -2,8 +2,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirestore, addDoc, setDoc, getDocs, collection, query, where, doc, updateDoc, arrayRemove, arrayUnion, deleteDoc } from "firebase/firestore";
 
-console.log(process.env.FIREBASE_API_KEY)
-
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,

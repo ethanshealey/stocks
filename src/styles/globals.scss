@@ -555,7 +555,8 @@ input.nosubmit {
     }
     .stock-graph {
         height: 500px;
-        width: 100%;
+        width: calc(100% + 65px);
+        margin-left: -65px;
     }
 
     .profile {
@@ -599,6 +600,10 @@ input.nosubmit {
         font-weight: 100;
         opacity: 50%;
     }
+}
+
+.recharts-text {
+    font-size: 11px !important;
 }
 
 @media (max-width: 450px) {

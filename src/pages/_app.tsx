@@ -22,7 +22,6 @@ export default function App({ Component, pageProps }: AppProps) {
       }
       else {
         const u = JSON.parse(data.user)
-        console.log('user:', u)
         setUser((_: any) => u)
         setIsLoading(false)
         if(['/login', '/register'].includes(router.pathname))

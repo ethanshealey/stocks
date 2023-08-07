@@ -24,7 +24,6 @@ export default function Home({ user }: HomeProps) {
   const [ isLoadingSearch, setIsLoadingSearch ] = useState<boolean>(false)
 
   useEffect(() => {
-    console.log(user)
     if(user) {
         loadStocks()
         loadNews()

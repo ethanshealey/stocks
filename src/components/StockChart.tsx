@@ -1,4 +1,4 @@
-import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Area, AreaChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import convertLargeNumber from '@/helpers/convertLargeNumber'
 
 type StockChartProps = {
@@ -23,6 +23,10 @@ const StockChart = ({ history, profile, period }: StockChartProps) => {
     }
 
     const isDown = () => history[0]?.close > history?.slice(-1)[0]?.close
+
+    const dataMin = Math.min.apply(null, history.map((h: any) => h.close))
+    const dataMax = Math.max.apply(null, history.map((h: any) => h.close))
+    const customDomain = [dataMin - (dataMin * .001), dataMax + (dataMax * .001)]
     
     const formatXAxisDate = (value: any, index: any): string => {
 
@@ -47,6 +51,8 @@ const StockChart = ({ history, profile, period }: StockChartProps) => {
         return 50
     }
 
+    // new Intl.NumberFormat("en-US", { notation: "compact", compactDisplay: "short" }
+
     return (
         <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={history}>
@@ -56,8 +62,11 @@ const StockChart = ({ history, profile, period }: StockChartProps) => {
                     <stop offset="95%" stopColor={ '#050505' } stopOpacity={0}/>
                 </linearGradient>
                 </defs>
-                <XAxis dataKey="fixed_date" stroke="#def2de" tickFormatter={formatXAxisDate} interval={"preserveStart"} minTickGap={formatMinThickGap()} />
-                <YAxis dataKey="close" domain={['dataMin', 'dataMax']} stroke="#def2de" type='number' interval={0} tickCount={5} />
+                {/* <XAxis dataKey="fixed_date" stroke="#def2de" tickFormatter={formatXAxisDate} interval={"preserveStart"} minTickGap={formatMinThickGap()} />
+                <YAxis dataKey="close" domain={customDomain} tickFormatter={(value) => value.toFixed(2)} stroke="#def2de" type='number' interval={0} tickCount={5} /> */}
+                <XAxis dataKey="fixed_date" tick={false} stroke={'#050505'} />
+                <YAxis dataKey="close" domain={customDomain} tick={false} stroke={'#050505'} />
+                <ReferenceLine y={history[0]?.close} stroke="#1a1a1a" strokeDasharray="3 3" />
                 <Tooltip content={customTooltip} />
                 <Area type="monotone" animationDuration={50} animationEasing='linear' dataKey="close" stroke={ isDown() ? '#992e2e' : '#499642' } fillOpacity={1} fill="url(#colorUv)" />
             </AreaChart>
