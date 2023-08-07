@@ -9,19 +9,33 @@ const Login = () => {
 
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
+  const [ confirmPassword, setConfirmPassword ] = useState('')
   const [ isLoading, setIsLoading ] = useState(false)
 
-  const login = () => {
+  const register = () => {
+
+    if(password !== confirmPassword) {
+        toast.error('Passwords do not match!',
+          {
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+    }
+
     setIsLoading(true)
-    fetch('/api/auth/login', {
+    fetch('/api/auth/register', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ "email": email, "password": password })
     }).then((res) => res.json()).then((data) => {
-      if(data === "Login was a success") {
-        toast.success('Logged In Successfully!',
+      if(data === "Account creation was a success") {
+        toast.success('Account Creation Successfull!',
           {
             style: {
               borderRadius: '10px',
@@ -57,9 +71,14 @@ const Login = () => {
           <label className='form__label'>Password</label>
         </div>
 
-        <button className='login-button' onClick={() => login()}>Log In</button>
+        <div className='form__group field'>
+          <input type='password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className='form__field' placeholder='Password' required />
+          <label className='form__label'>Confirm Password</label>
+        </div>
 
-        <p>Don't have an account?<br /><a href='/register'>Create one!</a></p>
+        <button className='login-button' onClick={() => register()}>Register</button>
+
+        <p>Already have an account?<br /><a href='/login'>Log In!</a></p>
 
       </div>
     </div>
