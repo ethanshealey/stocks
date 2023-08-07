@@ -93,6 +93,7 @@
         align-items: center;
         font-family: $font;
         overflow-y: hidden;
+        overflow-x: hidden;
         #stock-list {
             width: 48vw;
             height: calc(100vh - 150px);
