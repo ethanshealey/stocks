@@ -11,20 +11,19 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-    console.log('checking auth')
-    onAuthStateChanged(auth, (user) => {
-        if(user) {
-          const q = query(collection(db, "Users"), where("email", "==", user.email))
-          getDocs(q).then((qs) => {
-            const u = qs.docs[0].data()
-            console.log('hmmm')
-            console.log(u)
-            res.status(200).json({ 'user': JSON.stringify({ ...u, "extra": user }), 'error': '' })
-          })
-        }
-        else {
-          res.status(200).json({ "user": undefined, "error": "No user signed in"})
-        }
-    })
+    const user = auth.currentUser
+
+    if(user) {
+      const q = query(collection(db, "Users"), where("email", "==", user.email))
+      getDocs(q).then((qs) => {
+        const u = qs.docs[0].data()
+        console.log('hmmm')
+        console.log(u)
+        res.status(200).json({ 'user': JSON.stringify({ ...u, "extra": user }), 'error': '' })
+      })
+    }
+    else {
+      res.status(200).json({ "user": undefined, "error": "No user signed in"})
+    }
 
 }

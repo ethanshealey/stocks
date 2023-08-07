@@ -14,33 +14,20 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch('/api/auth/checkAuth').then((res) => res.text()).then(async (data) => {
-
-      console.log(data)
-
-      try {
-        const json = JSON.parse(data)
-        console.log(json)
+    fetch('/api/auth/checkAuth').then((res) => res.json()).then(async (data) => {
+      if(!data.user) {
+        if(!['/login', '/register'].includes(router.pathname))
+          router.push('/login')
+        setIsLoading(false)
       }
-      catch(e) {
-        console.log(e)
+      else {
+        const u = JSON.parse(data.user)
+        console.log('user:', u)
+        setUser((_: any) => u)
+        setIsLoading(false)
+        if(['/login', '/register'].includes(router.pathname))
+          router.push('/')
       }
-
-      setIsLoading(false)
-
-      // if(!data.user) {
-      //   if(!['/login', '/register'].includes(router.pathname))
-      //     router.push('/login')
-      //   setIsLoading(false)
-      // }
-      // else {
-      //   const u = JSON.parse(data.user)
-      //   console.log('user:', u)
-      //   setUser((_: any) => u)
-      //   setIsLoading(false)
-      //   if(['/login', '/register'].includes(router.pathname))
-      //     router.push('/')
-      // }
     })
   }, [router])
 
