@@ -29,7 +29,7 @@ export default function Home({ user }: HomeProps) {
         loadStocks()
         loadNews()
     }
-  }, [user, router])
+  }, [user, router, router.isReady])
 
   const loadStocks = () => {
     setIsLoadingStocks(true)
