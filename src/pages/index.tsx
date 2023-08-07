@@ -35,10 +35,9 @@ export default function Home({ user }: HomeProps) {
     setIsLoadingStocks(true)
     let userStockList: any[] = []
     // Get updated list of user stocks
-    fetch('/api/stocks/getStockList').then((res) => res.json()).then((data) => {
-      
-      if(data.stocks.length)
-        userStockList = [ ...data.stocks ]
+    fetch('/api/stocks/getStockList').then((res) => res.json()).then((data) => {      
+      if(data?.stocks.length)
+        userStockList = [ ...data?.stocks ]
       else 
         userStockList = ['SPY', 'AAPL', 'GOOG', 'RIVN', 'MSFT']
 
@@ -53,11 +52,14 @@ export default function Home({ user }: HomeProps) {
               color: '#fff',
             },
           })
+          return
         }
+
         else {
           setStocks((_: any) => data)
           setIsLoadingStocks(false)
         }
+
       })
     })
   }

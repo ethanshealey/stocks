@@ -1,7 +1,6 @@
 'use client'
-import { use, useEffect, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
-import usePersistentState from '@/hooks/usePersistentState'
 import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 const Login = () => {

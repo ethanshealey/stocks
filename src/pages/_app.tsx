@@ -14,27 +14,40 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch('/api/auth/checkAuth').then((res) => res.json()).then(async (data) => {
-      if(!data.user) {
-        if(!['/login', '/register'].includes(router.pathname))
-          router.push('/login')
-        setIsLoading(false)
+    fetch('/api/auth/checkAuth').then((res) => res.text()).then(async (data) => {
+
+      console.log(data)
+
+      try {
+        const json = JSON.parse(data)
+        console.log(json)
       }
-      else {
-        const u = JSON.parse(data.user)
-        console.log('user:', u)
-        setUser((_: any) => u)
-        setIsLoading(false)
-        if(['/login', '/register'].includes(router.pathname))
-          router.push('/')
+      catch(e) {
+        console.log(e)
       }
+
+      setIsLoading(false)
+
+      // if(!data.user) {
+      //   if(!['/login', '/register'].includes(router.pathname))
+      //     router.push('/login')
+      //   setIsLoading(false)
+      // }
+      // else {
+      //   const u = JSON.parse(data.user)
+      //   console.log('user:', u)
+      //   setUser((_: any) => u)
+      //   setIsLoading(false)
+      //   if(['/login', '/register'].includes(router.pathname))
+      //     router.push('/')
+      // }
     })
   }, [router])
 
   return (
     <>
       <Toaster position='bottom-center' />
-      { isLoading ? "Loading..." : <Component {...pageProps} user={user} /> }
+      { isLoading ? <></> : <Component {...pageProps} user={user} /> }
     </>
   )
 }
