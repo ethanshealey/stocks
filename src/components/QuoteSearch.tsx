@@ -36,7 +36,7 @@ const QuoteSearch = ({ search, loadDefault }: QuoteSearchProps) => {
 
   return (
     <form className="nosubmit" onSubmit={handleSearch}>
-      <AiOutlineSearch onClick={handleSearch} style={{ cursor: 'pointer' }} />
+      <AiOutlineSearch onClick={handleSearch} style={{ cursor: 'pointer', position: 'relative' }} />
       <input className="nosubmit" value={query} onChange={handleInput} type="search" placeholder="Search..." />
     </form>
   )

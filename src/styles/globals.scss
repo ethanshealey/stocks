@@ -179,6 +179,7 @@ html, body {
         justify-content: center;
         align-items: center;
         font-family: $font;
+        overflow-y: hidden;
         #stock-list {
             width: 48vw;
             height: calc(100vh - 150px);
@@ -190,6 +191,22 @@ html, body {
                 font-weight: 900;
                 font-size: 50px;
                 margin-bottom: 10px;
+            }
+            #quote-limit-reached-wrapper {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                padding-top: 20px;
+                #quote-limit-reached {
+                    color: $text;
+                    background-color: $red;
+                    width: auto;
+                    border-radius: 5px;
+                    padding: 5px;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
             }
         }
         #news {
@@ -374,6 +391,7 @@ input.nosubmit {
     font-family: $font;
     font-weight: 300;
     background-color: $secondary;
+    margin-left: -35px;
 }
 
 #home-spinner {
@@ -619,18 +637,6 @@ input.nosubmit {
     font-size: 11px !important;
 }
 
-@media (max-width: 450px) {
-    #home-wrapper {
-        #home-header {
-            #home-header-left {
-                span {
-                    display: none;
-                }
-            } 
-        }
-    }
-}
-
 /** FORM */
 .form__group {
     position: relative;
@@ -695,7 +701,38 @@ input.nosubmit {
 .form__field:required, .form__field:invalid {
     box-shadow: none;
 }
-/** /FORM */
+
+/** PHONE */
+
+@media (max-width: 986px) {
+    #home-wrapper {
+        #home-header {
+            #home-header-left {
+                span {
+                    display: none;
+                }
+            } 
+        }
+        #home-body {
+            flex-direction: column !important;
+            overflow-y: scroll !important;
+            #stock-list {
+                border: none !important;
+                height: auto !important;
+            }
+            #news {
+                #news-list {
+                    display: block !important;
+                    overflow: visible !important;
+                    max-height: 100% !important;
+                }
+            }
+            #stock-list, #news {
+                width: 95vw !important;
+            }
+        }
+    }
+}
 
 /** ANIMATIONS */
 

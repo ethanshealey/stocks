@@ -30,6 +30,10 @@ export default function Home({ user }: HomeProps) {
     }
   }, [user, router, router.isReady])
 
+  useEffect(() => {
+    console.log(MONTHLYQUOTAERROR)
+  }, [MONTHLYQUOTAERROR])
+
   const loadStocks = () => {
     setIsLoadingStocks(true)
     let userStockList: any[] = []
@@ -90,8 +94,14 @@ export default function Home({ user }: HomeProps) {
           <h1 className='symbol-header'>Symbols</h1>
           <QuoteSearch search={search} loadDefault={loadStocks} />
           {
-            isLoadingStocks || isLoadingSearch  ? MONTHLYQUOTAERROR ? <></> :
-              <div id='home-spinner'><Spinner /></div> : <StockQuoteList stocks={stocks} userStocks={user?.stocks} />
+            (isLoadingStocks || isLoadingSearch  ? 
+              <div id='home-spinner'><Spinner /></div> : 
+            (!MONTHLYQUOTAERROR ?
+              <StockQuoteList stocks={stocks} userStocks={user?.stocks} /> :
+              <div id="quote-limit-reached-wrapper">
+                <div id='quote-limit-reached'>Exceeded monthly quota</div>
+              </div>
+            ))
           }
         </div>
         <div id="news">

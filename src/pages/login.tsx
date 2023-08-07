@@ -32,8 +32,19 @@ const Login = () => {
         );
         router.push('/')
       }
-      else
-        console.log(JSON.parse(data.error))
+      else {
+        const error = JSON.parse(data.error)
+        if(error.code) 
+          toast.error('Incorrect email/password',
+              {
+                style: {
+                  borderRadius: '10px',
+                  background: '#333',
+                  color: '#fff',
+                },
+              }
+          );
+      }
       setIsLoading(false)
     }).catch((e) => {
       console.log(e)
