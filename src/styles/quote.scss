@@ -1,0 +1,91 @@
+@import 'variables.scss';
+
+.stock-quote-list-item {
+    border-bottom: 1px solid $secondary;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    .addRemoveBtn {
+        width: 50px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .add-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: $secondary;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .remove-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: $accent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            svg {
+                margin-left: -.5px;
+            }
+        }
+    }
+    .stock-quote-list-item-link {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        color: $text;
+        text-decoration: none;
+        .stock-quote-list-item-left {
+            width: 50%;
+            h1 {
+                font-weight: 900 !important;
+                font-size: 30px !important;
+            }
+            p {
+                margin-top: -20px;
+                font-weight: 100;
+            }
+        }
+        .stock-quote-list-item-right {
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            align-items: center;
+            width: 50%;
+            .stock-quote-price {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .stock-quote-list-item-price {
+                    width: 100px;
+                    font-size: 25px;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: center;
+                }
+                .up, .down {
+                    width: 80px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 5px;
+                    margin-top: -20px;
+                }
+                .up {
+                    background-color: $green;
+                }
+                .down {
+                    background-color: $red;
+                }
+            }
+        }
+    }
+}

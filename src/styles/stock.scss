@@ -1,0 +1,153 @@
+@import 'variables.scss';
+
+.stock-quote-list {
+    overflow-y: scroll;
+    max-height: 77vh !important;
+}
+
+#period-switcher {
+    margin-bottom: 25px;
+    button {
+        background-color: $background;
+        border: none;
+        border-bottom: 3px solid $background;
+        padding: 10px;
+        color: $text;
+        cursor: pointer;
+    }
+}
+
+.period-switcher-button-active { 
+    border-bottom: 3px solid $text !important;
+}
+
+.stock-wrapper {
+    min-height: calc(100vh - 135px) !important;
+    width: 96vw;
+    max-width: 2000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    font-family: $font;
+    .stock-breadcrumb {
+        margin-top: 15px;
+        margin-left: 5px;
+        margin-bottom: -20px;
+        display: flex;
+        flex-direction: row;
+        font-size: 11.5px;
+        font-weight: bold;
+        a, span {
+            color: $text;
+            text-decoration: none;
+            opacity: 50%;
+            transition: .5s;
+        }
+        span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            width: 20px;
+        }
+        a {
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .stock-name {
+        border-bottom: 1.5px solid $secondary;
+        width: 100%;
+    }
+    .stock-price {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        height: 75px;
+        margin-top: -20px;
+        .stock-price-current {
+            font-size: 50px;
+            font-weight: 900;
+        }
+        .stock-price-change-percent {
+            padding: 5px;
+            margin-left: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        .up-percent {
+            background-color: $green;
+        }
+        .down-percent {
+            background-color: $red;
+        }
+        .stock-price-change-dollar {
+            padding: 5px;
+            margin-left: 5px;
+        }
+        .up-dollar {
+            color: $green;
+        }
+        .down-dollar {
+            color: $red;
+        }
+    }
+    .stock-graph {
+        height: 500px;
+        width: calc(100% + 65px);
+        margin-left: -65px;
+    }
+
+    .profile {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 25px;
+        .about {
+            width: 70%;
+            padding: 15px;
+            padding-top: 0;
+            border-right: 2.5px solid $secondary;
+        }
+        .news {
+            width: 30%;
+            padding: 15px;
+            padding-top: 0;
+        }
+    }
+}
+
+.tooltip {
+    background-color: $secondary;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    height: 100px;
+    width: 200px;
+    border-radius: 5px;
+    h3 {
+        margin-top: 15px;
+        font-weight: 800;
+    }
+    h3, p {
+        margin-bottom: -15px;
+        margin-left: 10px;
+    }
+    p {
+        font-weight: 100;
+        opacity: 50%;
+    }
+}
+
+.recharts-text {
+    font-size: 11px !important;
+}

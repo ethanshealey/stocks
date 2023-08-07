@@ -1,0 +1,32 @@
+@media (max-width: 986px) {
+    #home-wrapper {
+        #home-header {
+            #home-header-left {
+                span {
+                    display: none;
+                }
+            } 
+        }
+        #home-body {
+            flex-direction: column !important;
+            overflow-y: scroll !important;
+            #stock-list {
+                border: none !important;
+                height: auto !important;
+                margin-left: 20px;
+            }
+            #news {
+                #news-list {
+                    display: block !important;
+                    overflow: visible !important;
+                    min-height: max-content !important;
+                    max-height: max-content !important;
+                    padding-bottom: 175px;
+                }
+            }
+            #stock-list, #news {
+                width: 95vw !important;
+            }
+        }
+    }
+}
