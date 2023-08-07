@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
+import { BiErrorCircle } from 'react-icons/bi';
 import StockQuoteList from '@/components/StockQuoteList';
 import QuoteSearch from '@/components/QuoteSearch';
 import Spinner from '@/components/Spinner';
@@ -99,7 +99,7 @@ export default function Home({ user }: HomeProps) {
             (!MONTHLYQUOTAERROR ?
               <StockQuoteList stocks={stocks} userStocks={user?.stocks} /> :
               <div id="quote-limit-reached-wrapper">
-                <div id='quote-limit-reached'>Exceeded monthly quota</div>
+                <div id='quote-limit-reached'><BiErrorCircle style={{ fontSize: '28px' }} /> Exceeded monthly quota</div>
               </div>
             ))
           }
