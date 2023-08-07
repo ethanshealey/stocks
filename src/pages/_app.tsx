@@ -7,6 +7,7 @@ import '@/styles/spinner.scss'
 import '@/styles/news.scss'
 import '@/styles/quote.scss'
 import '@/styles/forms.scss'
+import '@/styles/stock.scss'
 import type { AppProps } from 'next/app';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
