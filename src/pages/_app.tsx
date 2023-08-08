@@ -23,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     setIsLoading(true)
     fetch('/api/auth/checkAuth').then((res) => res.text()).then(async (txt) => {
+      console.log(txt)
       try {
         const data = JSON.parse(txt)
         if(!data.user) {
