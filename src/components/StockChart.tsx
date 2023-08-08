@@ -28,21 +28,18 @@ const StockChart = ({ history, profile, period }: StockChartProps) => {
     const dataMax = Math.max.apply(null, history.map((h: any) => h.close))
     const customDomain = [dataMin - (dataMin * .001), dataMax + (dataMax * .001)]
     
-    const formatXAxisDate = (value: any, index: any): string => {
-
-        let tick = '';
-
-        if(period === '1d')
-            tick = value.split(' ')[3]
-        else if(period === '5d')
-            tick = new Date(value).toString().split(' ')[0]
-        else if(period === '1m')
-            tick = value.split(' ')[0] + ' ' + value.split(' ')[1]
-        else
-            tick = value.split(' ')[3]
-
-        return tick
-    }
+    // const formatXAxisDate = (value: any, index: any): string => {
+    //     let tick = '';
+    //     if(period === '1d')
+    //         tick = value.split(' ')[3]
+    //     else if(period === '5d')
+    //         tick = new Date(value).toString().split(' ')[0]
+    //     else if(period === '1m')
+    //         tick = value.split(' ')[0] + ' ' + value.split(' ')[1]
+    //     else
+    //         tick = value.split(' ')[3]
+    //     return tick
+    // }
 
     const formatMinThickGap = () => {
         if(period === '1d') return 50

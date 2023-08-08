@@ -10,6 +10,8 @@ export default function handler(
 
     const uid: string | undefined = auth.currentUser?.uid;
 
+    console.log(uid)
+
     getDocs(query(collection(db, "Users"), where("user_id", "==", uid))).then((user) => {
         const stocks = user.docs[0].data().stocks
         res.status(200).json({ stocks: stocks })

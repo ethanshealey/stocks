@@ -34,33 +34,33 @@ export default function Home({ user }: HomeProps) {
     setIsLoadingStocks(true)
     let userStockList: any[] = []
     // Get updated list of user stocks
-    fetch('/api/stocks/getStockList').then((res) => res.json()).then((data) => {      
-      if(data?.stocks.length)
-        userStockList = [ ...data?.stocks ]
-      else 
-        userStockList = ['SPY', 'AAPL', 'GOOG', 'RIVN', 'MSFT']
+    console.log(user)
+    if(!user?.stocks.length) {
+      user.stocks = ['SPY', 'AAPL', 'GOOG', 'RIVN', 'MSFT']
+    }
+    console.log(user)
 
-      fetch('/api/stocks/quotes?symbols=' + userStockList.join(',')).then((res) => res.json()).then((data) => {
-        if(data?.message === 'Exceeded monthly quota, please come back later :(') {
-          setMONTHLYQUOTAERROR(true)
-          setIsLoadingStocks(false)
-          toast.error(data?.message, {
-            style: {
-              borderRadius: '10px',
-              background: '#333',
-              color: '#fff',
-            },
-          })
-          return
-        }
+    fetch('/api/stocks/quotes?symbols=' + user?.stocks?.join(',')).then((res) => res.json()).then((data) => {
+      if(data?.message === 'Exceeded monthly quota, please come back later :(') {
+        setMONTHLYQUOTAERROR(true)
+        setIsLoadingStocks(false)
+        toast.error(data?.message, {
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        })
+        return
+      }
 
-        else {
-          setStocks((_: any) => data)
-          setIsLoadingStocks(false)
-        }
+      else {
+        setStocks((_: any) => data)
+        setIsLoadingStocks(false)
+      }
 
-      })
     })
+
   }
 
   const loadNews = () => {

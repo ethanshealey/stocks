@@ -12,6 +12,7 @@ import type { AppProps } from 'next/app';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast'
+import Spinner from '@/components/Spinner'
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -23,7 +24,6 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     setIsLoading(true)
     fetch('/api/auth/checkAuth').then((res) => res.text()).then(async (txt) => {
-      console.log(txt)
       try {
         const data = JSON.parse(txt)
         if(!data.user) {
@@ -48,7 +48,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Toaster position='bottom-center' />
-      { isLoading ? <></> : <Component {...pageProps} user={user} /> }
+      { isLoading ? <Spinner /> : <Component {...pageProps} user={user} /> }
     </>
   )
 }
