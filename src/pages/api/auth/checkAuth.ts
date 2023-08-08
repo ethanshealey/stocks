@@ -11,21 +11,35 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-    const user = auth.currentUser
+    // const user = auth.currentUser
 
-    console.log('Is there a user?')
+    // console.log('Is there a user?')
 
-    console.log(user)
+    // console.log(user)
 
-    if(user) {
-      const q = query(collection(db, "Users"), where("email", "==", user.email))
-      getDocs(q).then((qs) => {
-        const u = qs.docs[0].data()
-        res.status(200).json({ 'user': JSON.stringify({ ...u, "extra": user }), 'error': '' })
-      })
-    }
-    else {
-      res.status(200).json({ "user": undefined, "error": "No user signed in"})
-    }
+    // if(user) {
+    //   const q = query(collection(db, "Users"), where("email", "==", user.email))
+    //   getDocs(q).then((qs) => {
+    //     const u = qs.docs[0].data()
+    //     res.status(200).json({ 'user': JSON.stringify({ ...u, "extra": user }), 'error': '' })
+    //   })
+    // }
+    // else {
+    //   res.status(200).json({ "user": undefined, "error": "No user signed in"})
+    // }
+
+    return onAuthStateChanged(auth, (user) => {
+      if(user) {
+        const q = query(collection(db, "Users"), where("email", "==", user.email))
+        getDocs(q).then((qs) => {
+          const u = qs.docs[0].data()
+          console.log('hmmm')
+          res.status(200).json({ 'user': JSON.stringify({ ...u, "extra": user }), 'error': '' })
+        })
+      }
+      else {
+        res.status(200).json({ "user": undefined, "error": "No user signed in"})
+      }
+    })
 
 }

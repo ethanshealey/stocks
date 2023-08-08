@@ -12,6 +12,7 @@ import type { AppProps } from 'next/app';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast'
+import { auth, onAuthStateChanged } from '@/firebase'
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -45,3 +46,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </>
   )
 }
+
+
