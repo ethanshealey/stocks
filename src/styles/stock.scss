@@ -23,6 +23,7 @@
 
 .stock-wrapper {
     min-height: calc(100vh - 135px) !important;
+    max-height: calc(100vh - 135px) !important;
     width: 96vw;
     max-width: 2000px;
     display: flex;
@@ -30,6 +31,8 @@
     justify-content: start;
     align-items: start;
     font-family: $font;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
     .stock-breadcrumb {
         margin-top: 15px;
         margin-left: 5px;
