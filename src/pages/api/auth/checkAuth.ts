@@ -28,7 +28,7 @@ export default function handler(
     //   res.status(200).json({ "user": undefined, "error": "No user signed in"})
     // }
 
-    return onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if(user) {
         const q = query(collection(db, "Users"), where("email", "==", user.email))
         getDocs(q).then((qs) => {
@@ -41,5 +41,7 @@ export default function handler(
         res.status(200).json({ "user": undefined, "error": "No user signed in"})
       }
     })
+
+    unsubscribe()
 
 }
