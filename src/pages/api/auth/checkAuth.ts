@@ -13,13 +13,14 @@ export default function handler(
 ) {
     const user = auth.currentUser
 
-    console.log('checking for current user...', user)
+    console.log('Is there a user?')
+
+    console.log(user)
 
     if(user) {
       const q = query(collection(db, "Users"), where("email", "==", user.email))
       getDocs(q).then((qs) => {
         const u = qs.docs[0].data()
-        console.log('well I got here....')
         res.status(200).json({ 'user': JSON.stringify({ ...u, "extra": user }), 'error': '' })
       })
     }

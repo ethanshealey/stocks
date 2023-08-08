@@ -24,20 +24,18 @@ const StockDetails = () => {
     const [ profile, setProfile ] = useState<any>()
 
     const [ stockData, setStockData ] = useState<any[]>([])
-    const [ period, setPeriod ] = useState<string>('')
+    const [ period, setPeriod ] = useState<string>('1d')
 
     useEffect(() => {
         setIsLoadingHistory(true)
         setIsLoadingProfile(true)
         if(symbol) {
             fetch(`/api/stocks/history?symbol=${symbol}&interval=5m`).then((res) => res.json()).then((data) => {
-                console.log(data)
                 setShortTermHistory(data.history)
                 setHistory(data.history)
                 setIsLoadingHistory(false)
             })
             fetch(`/api/stocks/history?symbol=${symbol}&interval=1d`).then((res) => res.json()).then((data) => {
-              console.log(data)
               setLongTermHistory(data.history)
               setIsLoadingHistory(false)
             })
@@ -150,14 +148,12 @@ const StockDetails = () => {
       setStockData(history)
     }
 
-    const isDown = () => history[0]?.close > history?.slice(-1)[0]?.close
-
     return (
         <div id="home-wrapper">
             <Header />
             {
                 isLoadingHistory || isLoadingProfile ? (
-                    <div id='news-spinner'>
+                    <div id='stock-spinner'>
                         <Spinner />
                     </div>
                 ) : (
@@ -170,8 +166,8 @@ const StockDetails = () => {
                         </h1>
                         <div className='stock-price'>
                             <h1 className='stock-price-current'>${ profile?.regularMarketPrice }</h1>
-                            <div className={`stock-price-change-percent ${ !isDown() ? 'up-percent' : 'down-percent'}`}>{ !isDown() ? <BsArrowUp /> : <BsArrowDown /> }&nbsp;{ profile?.regularMarketChangePercent.toFixed(2) }%</div>
-                            <div className={`stock-price-change-dollar ${ !isDown() ? 'up-dollar' : 'down-dollar'}`}>{ profile?.regularMarketChange.toFixed(2) } Today</div>
+                            <div className={`stock-price-change-percent ${ profile?.regularMarketChangePercent.toFixed(2) >= 0 ? 'up-percent' : 'down-percent'}`}>{ profile?.regularMarketChangePercent.toFixed(2) >= 0 ? <BsArrowUp /> : <BsArrowDown /> }&nbsp;{ profile?.regularMarketChangePercent.toFixed(2) }%</div>
+                            <div className={`stock-price-change-dollar ${ profile?.regularMarketChange.toFixed(2) >= 0 ? 'up-dollar' : 'down-dollar'}`}>{ profile?.regularMarketChange.toFixed(2) } Today</div>
                         </div>
                         <PeriodSwitcher onChange={(p: string) => handlePeriodChange(p)} />
                         <div className='stock-graph'>
