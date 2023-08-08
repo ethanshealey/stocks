@@ -30,10 +30,6 @@ export default function Home({ user }: HomeProps) {
     }
   }, [user, router, router.isReady])
 
-  useEffect(() => {
-    console.log(MONTHLYQUOTAERROR)
-  }, [MONTHLYQUOTAERROR])
-
   const loadStocks = () => {
     setIsLoadingStocks(true)
     let userStockList: any[] = []

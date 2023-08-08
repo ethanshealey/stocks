@@ -8,7 +8,7 @@ export default function handler(
 
     const headers: HeadersInit = new Headers()
 
-    headers.set( 'X-RapidAPI-Key', process.env.X_RAPIDAPI_KEY || '')
+    headers.set( 'X-RapidAPI-Key', process.env.X_RAPIDAPI_KEY_2 || '')
     headers.set( 'X-RapidAPI-Host', process.env.X_RAPIDAPI_HOST || '')
 
     const sym = req.query.symbol
