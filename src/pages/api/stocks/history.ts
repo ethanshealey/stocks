@@ -13,7 +13,7 @@ export default function handler(
     if(sym && interval) {
         const headers: HeadersInit = new Headers()
 
-        headers.set( 'X-RapidAPI-Key', process.env.X_RAPIDAPI_KEY_2 || '')
+        headers.set( 'X-RapidAPI-Key', process.env.X_RAPIDAPI_KEY || '')
         headers.set( 'X-RapidAPI-Host', process.env.X_RAPIDAPI_HOST || '')
 
         fetch(`https://yahoo-finance15.p.rapidapi.com/api/yahoo/hi/history/${sym}/${interval}`, {

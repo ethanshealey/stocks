@@ -1,5 +1,14 @@
 @import 'variables.scss';
 
+*::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 #stock-spinner {
     display: flex;
     flex-direction: row;
@@ -122,16 +131,48 @@
         justify-content: space-between;
         width: 100%;
         margin-top: 25px;
-        .about {
-            width: 70%;
-            padding: 15px;
-            padding-top: 0;
-            border-right: 2.5px solid $secondary;
+        .about, .info {
+            margin-bottom: 25px;
         }
-        .news {
-            width: 30%;
+        .about {
+            width: 47%;
             padding: 15px;
             padding-top: 0;
+            border: 2.5px solid $secondary;
+            border-radius: 10px;
+            hr {
+                color: $secondary;
+                border-radius: 5px;
+            }
+            .about-detail {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .about-detail-left {
+                    font-weight: 300;
+                    svg {
+                        transform: translate(0px,2px);
+                    }
+                }
+            }
+        }
+        .info {
+            width: 47%;
+            padding: 15px;
+            padding-top: 0;
+            border: 2.5px solid $secondary;
+            border-radius: 10px;
+            .info-detail {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .info-detail-left {
+                    font-weight: 300;
+                    svg {
+                        transform: translate(0px,2px);
+                    }
+                }
+            }
         }
     }
 }

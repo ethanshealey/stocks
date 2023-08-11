@@ -28,12 +28,10 @@ export default function Home({ user }: HomeProps) {
         loadStocks()
         loadNews()
     }
-  }, [user, router, router.isReady])
+  }, [user, router])
 
   const loadStocks = () => {
     setIsLoadingStocks(true)
-    let userStockList: any[] = []
-    // Get updated list of user stocks
     console.log(user)
     if(!user?.stocks.length) {
       user.stocks = ['SPY', 'AAPL', 'GOOG', 'RIVN', 'MSFT']

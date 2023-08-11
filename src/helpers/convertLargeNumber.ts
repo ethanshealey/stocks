@@ -1,2 +1,2 @@
-const convertLargeNumber = (n: number): string => new Intl.NumberFormat("en-US", { notation: "compact", compactDisplay: "short" }).format(n)
+const convertLargeNumber = (n: number, display: "short" | "long" | undefined): string => new Intl.NumberFormat("en-US", { notation: "compact", compactDisplay: display }).format(n)
 export default convertLargeNumber

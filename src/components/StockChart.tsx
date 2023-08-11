@@ -15,7 +15,7 @@ const StockChart = ({ history, profile, period }: StockChartProps) => {
                 <div className='tooltip'>
                     <h3>${ payload[0].payload.close.toFixed(2) }</h3>
                     <p>{ payload[0].payload.fixed_date }</p>
-                    <p>Volume: { convertLargeNumber(payload[0].payload.volume) }</p>
+                    <p>Volume: { convertLargeNumber(payload[0].payload.volume, 'short') }</p>
                 </div>
             )
         }

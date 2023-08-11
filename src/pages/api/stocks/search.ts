@@ -13,7 +13,7 @@ export default function handler(
     if(q) {
       const headers: HeadersInit = new Headers()
 
-      headers.set( 'X-RapidAPI-Key', process.env.X_RAPIDAPI_KEY_2 || '')
+      headers.set( 'X-RapidAPI-Key', process.env.X_RAPIDAPI_KEY || '')
       headers.set( 'X-RapidAPI-Host', process.env.X_RAPIDAPI_HOST_ALPHA || '')
 
       getDocs(query(collection(db, "Search"), where("query", "==", q.toLowerCase()))).then((results) => {

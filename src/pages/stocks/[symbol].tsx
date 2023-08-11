@@ -10,6 +10,12 @@ import sleep from '@/helpers/sleep'
 import getLatestDate from '@/helpers/getLatestDate'
 import PeriodSwitcher from '@/components/PeriodSwitcher'
 import Header from '@/components/Header'
+import mockShortTermData from '@/helpers/MockShortTermData.json'
+import mockLongTermData from '@/helpers/MockLongTermData.json'
+import mockProfile from "@/helpers/MockProfile.json"
+import { AiOutlineUser } from 'react-icons/ai'
+import { PiBrowser, PiUsersLight } from 'react-icons/pi'
+import convertLargeNumber from '@/helpers/convertLargeNumber'
 
 const StockDetails = () => {
 
@@ -31,20 +37,29 @@ const StockDetails = () => {
         setIsLoadingProfile(true)
         if(symbol) {
             fetch(`/api/stocks/history?symbol=${symbol}&interval=5m`).then((res) => res.json()).then((data) => {
+                console.log(data.history)
                 setShortTermHistory(data.history)
                 setHistory(data.history)
                 setIsLoadingHistory(false)
             })
             fetch(`/api/stocks/history?symbol=${symbol}&interval=1d`).then((res) => res.json()).then((data) => {
+              console.log(data.history)
               setLongTermHistory(data.history)
               setIsLoadingHistory(false)
             })
             fetch(`/api/stocks/profile?symbol=${symbol}`).then((res) => res.json()).then((data) => {
+                console.log(data.profile)
                 setProfile(data.profile)
                 setIsLoadingProfile(false)
             })
+            // setHistory(mockShortTermData)
+            // setShortTermHistory((_: any) => mockShortTermData)
+            // setLongTermHistory((_: any) => mockLongTermData)
+            // setProfile((_: any) => mockProfile)
+            // setIsLoadingHistory(false)
+            // setIsLoadingProfile(false)
         }
-    }, [symbol, router.isReady])
+    }, [symbol])
 
     useEffect(() => {
         if(stockData) handleOneDay()
@@ -177,10 +192,49 @@ const StockDetails = () => {
                           <div className='about'>
                             <h1>About</h1>
                             <p>{ profile?.longBusinessSummary }</p>
+                            <hr />
+                            <div className='about-detail'>
+                              <p className='about-detail-left'><AiOutlineUser /> CEO</p>
+                              <p className='about-detail-right'>{profile?.companyOfficers[0].name}</p>
+                            </div>
+                            <hr />
+                            <div className='about-detail'>
+                              <p className='about-detail-left'><PiBrowser /> Website</p>
+                              <p className='about-detail-right'><a href={profile?.website} target="_blank">{profile?.website}</a></p>
+                            </div>
+                            <hr />
+                            <div className='about-detail'>
+                              <p className='about-detail-left'><PiUsersLight /> Employees</p>
+                              <p className='about-detail-right'>{convertLargeNumber(profile?.fullTimeEmployees, 'short')}</p>
+                            </div>
                           </div>
-                          <div className='news'>
-                            <h1>News</h1>
-                          </div>
+                          <div className='info'>
+                            <br />
+                            <div className='info-detail'>
+                              <p className='info-detail-left'>Previous Close</p>
+                              <p className='info-detail-right'>${profile?.regularMarketPreviousClose}</p>
+                            </div>
+                            <hr />
+                            <div className='info-detail'>
+                              <p className='info-detail-left'>Day Range</p>
+                              <p className='info-detail-right'>${Number(profile?.regularMarketDayRange.split(' - ')[0]).toFixed(2)} &mdash; ${Number(profile?.regularMarketDayRange.split(' - ')[1]).toFixed(2)}</p>
+                            </div>
+                            <hr />
+                            <div className='info-detail'>
+                              <p className='info-detail-left'>Year Range</p>
+                              <p className='info-detail-right'>${Number(profile?.fiftyTwoWeekRange.split(' - ')[0]).toFixed(2)} &mdash; ${Number(profile?.fiftyTwoWeekRange.split(' - ')[1]).toFixed(2)}</p>
+                            </div>
+                            <hr />
+                            <div className='info-detail'>
+                              <p className='info-detail-left'>Market Cap</p>
+                              <p className='info-detail-right'>{convertLargeNumber(profile?.marketCap, 'short')}</p>
+                            </div>
+                            <hr />
+                            <div className='info-detail'>
+                              <p className='info-detail-left'>Primary Exchange</p>
+                              <p className='info-detail-right'>{profile?.fullExchangeName}</p>
+                            </div>                          </div>
+                          
                         </div>
                     </div>
                 )

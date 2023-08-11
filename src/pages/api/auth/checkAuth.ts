@@ -29,6 +29,9 @@ export default function handler(
     // }
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+
+      console.log(user)
+
       if(user) {
         const q = query(collection(db, "Users"), where("email", "==", user.email))
         getDocs(q).then((qs) => {

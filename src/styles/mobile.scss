@@ -29,4 +29,13 @@
             }
         }
     }
+    .profile {
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        .about, .info {
+            width: 90% !important;
+            margin-bottom: 15px;
+        }
+    }
 }
