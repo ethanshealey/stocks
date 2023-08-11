@@ -133,6 +133,10 @@
         margin-top: 25px;
         .about, .info {
             margin-bottom: 25px;
+            hr {
+                color: $secondary;
+                border-radius: 5px;
+            }
         }
         .about {
             width: 47%;
@@ -141,10 +145,6 @@
             border: 2.5px solid $secondary;
             border-radius: 10px;
             height: fit-content;
-            hr {
-                color: $secondary;
-                border-radius: 5px;
-            }
             .about-detail {
                 display: flex;
                 flex-direction: row;
