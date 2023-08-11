@@ -26,6 +26,8 @@ export default function handler(
         headers: headers
     }).then((r) => r.json()).then((data) => {
 
+        console.log(data)
+
         if(data?.message === 'You have exceeded the MONTHLY quota for Request on your current plan, BASIC. Upgrade your plan at https://rapidapi.com/sparior/api/yahoo-finance15')
           res.status(500).json({ "message": "Exceeded monthly quota, please come back later :(" })
 
@@ -39,7 +41,7 @@ export default function handler(
             changePercent: stock.regularMarketChangePercent
           })
         })
-        res.status(200).json(stocks)
+        return res.status(200).json(stocks)
     }).catch((err) => {
       console.log('Error in /api/stocks/quotes =>', err)
     })
