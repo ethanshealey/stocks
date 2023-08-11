@@ -180,7 +180,7 @@ const StockDetails = () => {
                             { profile?.longName }
                         </h1>
                         <div className='stock-price'>
-                            <h1 className='stock-price-current'>${ profile?.regularMarketPrice }</h1>
+                            <h1 className='stock-price-current'>${ profile?.regularMarketPrice.toFixed(2) }</h1>
                             <div className={`stock-price-change-percent ${ profile?.regularMarketChangePercent.toFixed(2) >= 0 ? 'up-percent' : 'down-percent'}`}>{ profile?.regularMarketChangePercent.toFixed(2) >= 0 ? <BsArrowUp /> : <BsArrowDown /> }&nbsp;{ profile?.regularMarketChangePercent.toFixed(2) }%</div>
                             <div className={`stock-price-change-dollar ${ profile?.regularMarketChange.toFixed(2) >= 0 ? 'up-dollar' : 'down-dollar'}`}>{ profile?.regularMarketChange.toFixed(2) } Today</div>
                         </div>

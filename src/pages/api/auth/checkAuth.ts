@@ -29,9 +29,7 @@ export default async function handler(
     //   res.status(200).json({ "user": undefined, "error": "No user signed in"})
     // }
 
-    await sleep(1000)
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
 
       console.log('current user is', user)
 
@@ -47,7 +45,5 @@ export default async function handler(
         res.status(200).json({ "user": undefined, "error": "No user signed in"})
       }
     })
-
-    unsubscribe()
 
 }

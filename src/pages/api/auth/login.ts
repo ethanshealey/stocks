@@ -14,17 +14,17 @@ export default function handler(
     const email = req.body.email
     const password = req.body.password
 
-    setPersistence(auth, browserLocalPersistence).then(() => {
-      return signInWithEmailAndPassword(auth, email, password).then((uc) => {
+    //setPersistence(auth, browserLocalPersistence).then(() => {
+      signInWithEmailAndPassword(auth, email, password).then((uc) => {
         res.status(200).json("Login was a success")
       }).catch((error: any) => {
           console.log('/api/auth/login ERROR:', error)
           res.status(200).json({ 'user': undefined, 'error': JSON.stringify(error) })
       })
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage)
-    })
+    // }).catch((error) => {
+    //   // Handle Errors here.
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //   console.log(errorCode, errorMessage)
+    // })
 }
