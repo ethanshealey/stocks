@@ -1,0 +1,289 @@
+{
+    "address1": "14600 Myford Road",
+    "city": "Irvine",
+    "state": "CA",
+    "zip": "92606",
+    "country": "United States",
+    "phone": "888 748 4261",
+    "website": "https://rivian.com",
+    "industry": "Auto Manufacturers",
+    "industryDisp": "Auto Manufacturers",
+    "sector": "Consumer Cyclical",
+    "sectorDisp": "Consumer Cyclical",
+    "longBusinessSummary": "Rivian Automotive, Inc. designs, develops, manufactures, and sells electric vehicles and accessories. The company offers five-passenger pickup trucks and seven-passenger sports utility vehicles. It provides Rivian Commercial Vehicle platform for Electric Delivery Van with collaboration with Amazon.com, Inc. The company sells its products directly to customers in the consumer and commercial markets. Rivian Automotive, Inc. was founded in 2009 and is based in Irvine, California.",
+    "fullTimeEmployees": 14122,
+    "companyOfficers": [
+      {
+        "maxAge": 1,
+        "name": "Mr. Robert Joseph Scaringe Ph.D.",
+        "age": 38,
+        "title": "Founder, CEO & Chairman",
+        "yearBorn": 1984,
+        "fiscalYear": 2022,
+        "totalPay": {
+          "raw": 1012518,
+          "fmt": "1.01M",
+          "longFmt": "1,012,518"
+        },
+        "exercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        },
+        "unexercisedValue": {
+          "raw": 135341968,
+          "fmt": "135.34M",
+          "longFmt": "135,341,968"
+        }
+      },
+      {
+        "maxAge": 1,
+        "name": "Ms. Claire  McDonough",
+        "age": 40,
+        "title": "Chief Financial Officer",
+        "yearBorn": 1982,
+        "fiscalYear": 2022,
+        "totalPay": {
+          "raw": 580631,
+          "fmt": "580.63k",
+          "longFmt": "580,631"
+        },
+        "exercisedValue": {
+          "raw": 166000,
+          "fmt": "166k",
+          "longFmt": "166,000"
+        },
+        "unexercisedValue": {
+          "raw": 2648600,
+          "fmt": "2.65M",
+          "longFmt": "2,648,600"
+        }
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Jiten  Behl",
+        "age": 39,
+        "title": "Chief Growth Officer",
+        "yearBorn": 1983,
+        "fiscalYear": 2022,
+        "totalPay": {
+          "raw": 868084,
+          "fmt": "868.08k",
+          "longFmt": "868,084"
+        },
+        "exercisedValue": {
+          "raw": 1921414,
+          "fmt": "1.92M",
+          "longFmt": "1,921,414"
+        },
+        "unexercisedValue": {
+          "raw": 6929063,
+          "fmt": "6.93M",
+          "longFmt": "6,929,063"
+        }
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Frank  Klein",
+        "title": "Chief Operations Officer",
+        "exercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        },
+        "unexercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        }
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Jeffrey R. Baker",
+        "age": 53,
+        "title": "Chief Accounting Officer",
+        "yearBorn": 1969,
+        "exercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        },
+        "unexercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        }
+      },
+      {
+        "maxAge": 1,
+        "name": "Ms. Diane  Lye",
+        "title": "Chief Information Officer",
+        "exercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        },
+        "unexercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        }
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Timothy Francis Bei C.F.A., CFA",
+        "age": 49,
+        "title": "VP of Investor Relations",
+        "yearBorn": 1973,
+        "exercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        },
+        "unexercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        }
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Michael J. Callahan",
+        "age": 53,
+        "title": "Chief Legal Officer & Sec.",
+        "yearBorn": 1969,
+        "exercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        },
+        "unexercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        }
+      },
+      {
+        "maxAge": 1,
+        "name": "Ms. Helen  Russell",
+        "age": 54,
+        "title": "Chief People Officer",
+        "yearBorn": 1968,
+        "exercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        },
+        "unexercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        }
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Nick  Kalayjian",
+        "title": "Chief Product Devel. Officer",
+        "exercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        },
+        "unexercisedValue": {
+          "raw": 0,
+          "fmt": null,
+          "longFmt": "0"
+        }
+      }
+    ],
+    "auditRisk": 10,
+    "boardRisk": 7,
+    "compensationRisk": 9,
+    "shareHolderRightsRisk": 10,
+    "overallRisk": 10,
+    "governanceEpochDate": 1690848000,
+    "compensationAsOfEpochDate": 1672444800,
+    "maxAge": 86400,
+    "preMarketChange": null,
+    "preMarketChangePercent": null,
+    "preMarketPrice": null,
+    "preMarketTime": null,
+    "postMarketChange": 0.11000061,
+    "postMarketChangePercent": 0.50205666,
+    "postMarketPrice": 22.02,
+    "postMarketTime": 1691709570,
+    "language": "en-US",
+    "region": "US",
+    "quoteType": "EQUITY",
+    "typeDisp": "Equity",
+    "quoteSourceName": "Nasdaq Real Time Price",
+    "triggerable": true,
+    "customPriceAlertConfidence": "HIGH",
+    "currency": "USD",
+    "regularMarketChangePercent": -1.9686824,
+    "regularMarketPrice": 21.91,
+    "regularMarketChange": -0.44000053,
+    "regularMarketTime": 1691697601,
+    "regularMarketDayHigh": 22.9,
+    "regularMarketDayRange": "21.51 - 22.9",
+    "regularMarketDayLow": 21.51,
+    "regularMarketVolume": 50274209,
+    "regularMarketPreviousClose": 22.35,
+    "bid": 21.89,
+    "ask": 21.93,
+    "bidSize": 18,
+    "askSize": 30,
+    "fullExchangeName": "NasdaqGS",
+    "financialCurrency": "USD",
+    "regularMarketOpen": 22.66,
+    "averageDailyVolume3Month": 50224250,
+    "exchange": "NMS",
+    "shortName": "Rivian Automotive, Inc.",
+    "longName": "Rivian Automotive, Inc.",
+    "messageBoardId": "finmb_144746614",
+    "exchangeTimezoneName": "America/New_York",
+    "exchangeTimezoneShortName": "EDT",
+    "gmtOffSetMilliseconds": -14400000,
+    "market": "us_market",
+    "esgPopulated": false,
+    "marketState": "POST",
+    "averageDailyVolume10Day": 48744710,
+    "fiftyTwoWeekLowChange": 10.23,
+    "fiftyTwoWeekLowChangePercent": 0.8758561,
+    "fiftyTwoWeekRange": "11.68 - 40.86",
+    "fiftyTwoWeekHighChange": -18.95,
+    "fiftyTwoWeekHighChangePercent": -0.46377876,
+    "fiftyTwoWeekLow": 11.68,
+    "fiftyTwoWeekHigh": 40.86,
+    "fiftyTwoWeekChangePercent": -42.61874,
+    "earningsTimestamp": 1691528400,
+    "earningsTimestampStart": 1699354740,
+    "earningsTimestampEnd": 1699876800,
+    "trailingAnnualDividendRate": 0,
+    "trailingAnnualDividendYield": 0,
+    "epsTrailingTwelveMonths": -7.1,
+    "epsForward": -3.28,
+    "epsCurrentYear": -5.05,
+    "priceEpsCurrentYear": -4.3386135,
+    "sharesOutstanding": 931510016,
+    "bookValue": 13.76,
+    "fiftyDayAverage": 20.178,
+    "fiftyDayAverageChange": 1.7320004,
+    "fiftyDayAverageChangePercent": 0.085836075,
+    "twoHundredDayAverage": 19.91745,
+    "twoHundredDayAverageChange": 1.9925499,
+    "twoHundredDayAverageChangePercent": 0.10004041,
+    "marketCap": 20580829184,
+    "forwardPE": -6.679878,
+    "priceToBook": 1.5922965,
+    "sourceInterval": 15,
+    "exchangeDataDelayedBy": 0,
+    "ipoExpectedDate": "2021-11-10",
+    "averageAnalystRating": "2.3 - Buy",
+    "tradeable": false,
+    "cryptoTradeable": false,
+    "firstTradeDateMilliseconds": 1636554600000,
+    "priceHint": 2,
+    "displayName": "Rivian Automotive",
+    "symbol": "RIVN"
+  }
