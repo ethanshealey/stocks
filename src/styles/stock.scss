@@ -140,6 +140,7 @@
             padding-top: 0;
             border: 2.5px solid $secondary;
             border-radius: 10px;
+            height: fit-content;
             hr {
                 color: $secondary;
                 border-radius: 5px;
@@ -162,6 +163,7 @@
             padding-top: 0;
             border: 2.5px solid $secondary;
             border-radius: 10px;
+            height: fit-content;
             .info-detail {
                 display: flex;
                 flex-direction: row;
