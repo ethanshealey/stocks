@@ -1,13 +1,14 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { auth, onAuthStateChanged, getDocs, db, collection, query, where } from '@/firebase'
+import sleep from '@/helpers/sleep'
 
 type ResponseData = {
   user: string | undefined
   error: string
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
@@ -28,9 +29,11 @@ export default function handler(
     //   res.status(200).json({ "user": undefined, "error": "No user signed in"})
     // }
 
+    await sleep(1000)
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
 
-      console.log(user)
+      console.log('current user is', user)
 
       if(user) {
         const q = query(collection(db, "Users"), where("email", "==", user.email))

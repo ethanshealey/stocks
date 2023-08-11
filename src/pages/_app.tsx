@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast'
 import Spinner from '@/components/Spinner'
+import { auth, onAuthStateChanged } from '@/firebase'
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -48,7 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Toaster position='bottom-center' />
-      { isLoading ? <Spinner /> : <Component {...pageProps} user={user} /> }
+      { isLoading ? <div className='center'><Spinner /></div> : <Component {...pageProps} user={user} /> }
     </>
   )
 }
