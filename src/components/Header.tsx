@@ -4,6 +4,7 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import { RiLogoutBoxLine } from 'react-icons/ri'
 import { AiOutlineStock } from 'react-icons/ai'
 import { useRouter } from 'next/router';
+import { auth, signOut } from '@/firebase'
 
 const Header = () => {
 
@@ -20,7 +21,7 @@ const Header = () => {
     }
 
     const logout = () => {
-        fetch('/api/auth/logout').then((res) => res.json()).then((data) => {
+        signOut(auth).then(() => {
             router.push('/login')
         })
     }

@@ -27,31 +27,7 @@ const Login = () => {
     }
 
     setIsLoading(true)
-    fetch('/api/auth/register', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ "email": email, "password": password })
-    }).then((res) => res.json()).then((data) => {
-      if(data === "Account creation was a success") {
-        toast.success('Account Creation Successfull!',
-          {
-            style: {
-              borderRadius: '10px',
-              background: '#333',
-              color: '#fff',
-            },
-          }
-        );
-        router.push('/')
-      }
-      else
-        console.log(JSON.parse(data.error))
-      setIsLoading(false)
-    }).catch((e) => {
-      console.log(e)
-    })
+   //@TODO
   }
 
   return (
