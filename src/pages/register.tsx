@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
+import { addDoc, auth, collection, createUserWithEmailAndPassword, db } from '@/firebase';
 const Login = () => {
 
   const router = useRouter()
@@ -27,7 +28,23 @@ const Login = () => {
     }
 
     setIsLoading(true)
-   //@TODO
+    createUserWithEmailAndPassword(auth, email, password).then((uc: any) => {
+      addDoc(collection(db, "Users"), {
+        email: email,
+        stocks: [],
+        user_id: uc.user.reloadUserInfo.localId,
+        username: uc.user.displayName
+      }).then(() => {
+        toast.success('Successfully created account!', {
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        })
+        router.push('/')
+      })
+    })
   }
 
   return (
