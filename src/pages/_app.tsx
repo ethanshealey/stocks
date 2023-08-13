@@ -48,6 +48,7 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     fetch('/api/auth/check').then((res) => res.text()).then(async (txt) => {
       try {
+        console.log(txt)
         const data = JSON.parse(txt)
         if(!data.user) {
           if(!['/login', '/register'].includes(router.pathname))
