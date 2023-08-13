@@ -33,7 +33,7 @@ export default function Home({ user }: HomeProps) {
   const loadStocks = () => {
     setIsLoadingStocks(true)
     console.log(user)
-    if(!user?.stocks.length) {
+    if(!user?.stocks?.length) {
       user.stocks = ['SPY', 'AAPL', 'GOOG', 'RIVN', 'MSFT']
     }
     console.log(user)

@@ -180,9 +180,9 @@ const StockDetails = () => {
                             { profile?.longName }
                         </h1>
                         <div className='stock-price'>
-                            <h1 className='stock-price-current'>${ profile?.regularMarketPrice.toFixed(2) }</h1>
-                            <div className={`stock-price-change-percent ${ profile?.regularMarketChangePercent.toFixed(2) >= 0 ? 'up-percent' : 'down-percent'}`}>{ profile?.regularMarketChangePercent.toFixed(2) >= 0 ? <BsArrowUp /> : <BsArrowDown /> }&nbsp;{ profile?.regularMarketChangePercent.toFixed(2) }%</div>
-                            <div className={`stock-price-change-dollar ${ profile?.regularMarketChange.toFixed(2) >= 0 ? 'up-dollar' : 'down-dollar'}`}>{ profile?.regularMarketChange.toFixed(2) } Today</div>
+                            <h1 className='stock-price-current'>${ profile?.regularMarketPrice?.toFixed(2) }</h1>
+                            <div className={`stock-price-change-percent ${ profile?.regularMarketChangePercent?.toFixed(2) >= 0 ? 'up-percent' : 'down-percent'}`}>{ profile?.regularMarketChangePercent?.toFixed(2) >= 0 ? <BsArrowUp /> : <BsArrowDown /> }&nbsp;{ profile?.regularMarketChangePercent?.toFixed(2) }%</div>
+                            <div className={`stock-price-change-dollar ${ profile?.regularMarketChange?.toFixed(2) >= 0 ? 'up-dollar' : 'down-dollar'}`}>{ profile?.regularMarketChange?.toFixed(2) } Today</div>
                         </div>
                         <PeriodSwitcher onChange={(p: string) => handlePeriodChange(p)} />
                         <div className='stock-graph'>
@@ -195,7 +195,7 @@ const StockDetails = () => {
                             <hr />
                             <div className='about-detail'>
                               <p className='about-detail-left'><AiOutlineUser /> CEO</p>
-                              <p className='about-detail-right'>{profile?.companyOfficers[0].name}</p>
+                              <p className='about-detail-right'>{profile?.companyOfficers[0]?.name}</p>
                             </div>
                             <hr />
                             <div className='about-detail'>
@@ -217,12 +217,12 @@ const StockDetails = () => {
                             <hr />
                             <div className='info-detail'>
                               <p className='info-detail-left'>Day Range</p>
-                              <p className='info-detail-right'>${Number(profile?.regularMarketDayRange.split(' - ')[0]).toFixed(2)} &mdash; ${Number(profile?.regularMarketDayRange.split(' - ')[1]).toFixed(2)}</p>
+                              <p className='info-detail-right'>${Number(profile?.regularMarketDayRange?.split(' - ')[0])?.toFixed(2)} &mdash; ${Number(profile?.regularMarketDayRange?.split(' - ')[1])?.toFixed(2)}</p>
                             </div>
                             <hr />
                             <div className='info-detail'>
                               <p className='info-detail-left'>Year Range</p>
-                              <p className='info-detail-right'>${Number(profile?.fiftyTwoWeekRange.split(' - ')[0]).toFixed(2)} &mdash; ${Number(profile?.fiftyTwoWeekRange.split(' - ')[1]).toFixed(2)}</p>
+                              <p className='info-detail-right'>${Number(profile?.fiftyTwoWeekRange?.split(' - ')[0])?.toFixed(2)} &mdash; ${Number(profile?.fiftyTwoWeekRange?.split(' - ')[1])?.toFixed(2)}</p>
                             </div>
                             <hr />
                             <div className='info-detail'>

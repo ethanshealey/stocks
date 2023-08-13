@@ -13,13 +13,15 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast'
 import Spinner from '@/components/Spinner'
+import { auth, onAuthStateChanged } from '@/firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 export default function App({ Component, pageProps }: AppProps) {
 
   const router = useRouter()
 
   const [ isLoading, setIsLoading ] = useState(false)
-  const [ user, setUser ] = useState()
+  const [ user, setUser ] = useState<any>()
 
   // useEffect(() => {
   //   setIsLoading(true)
@@ -46,28 +48,11 @@ export default function App({ Component, pageProps }: AppProps) {
   // }, [router, router.isReady])
 
   useEffect(() => {
-    fetch('/api/auth/check').then((res) => res.text()).then(async (txt) => {
-      try {
-        console.log(txt)
-        const data = JSON.parse(txt)
-        if(!data.user) {
-          if(!['/login', '/register'].includes(router.pathname))
-            router.push('/login')
-          setIsLoading(false)
-        }
-        else {
-          const u = JSON.parse(data.user)
-          setUser((_: any) => u)
-          setIsLoading(false)
-          if(['/login', '/register'].includes(router.pathname))
-            router.push('/')
-        }
-      }
-      catch(e) {
-        console.log(e)
-      }
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      setUser(u)
     })
-  }, [router, router.isReady])
+    return () => unsubscribe()
+  }, [])
 
   return (
     <>
