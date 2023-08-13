@@ -1,13 +1,5 @@
 'use client'
-import '@/styles/globals.scss'
-import '@/styles/login.scss'
-import '@/styles/home.scss'
-import '@/styles/mobile.scss'
-import '@/styles/spinner.scss'
-import '@/styles/news.scss'
-import '@/styles/quote.scss'
-import '@/styles/forms.scss'
-import '@/styles/stock.scss'
+import '@/styles/*'
 import type { AppProps } from 'next/app';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
