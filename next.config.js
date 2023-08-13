@@ -4,6 +4,7 @@ const nextConfig = {
   api: {
     externalResolver: true,
   },
+  optimizeFonts: false,
 }
 
 module.exports = nextConfig
