@@ -34,8 +34,10 @@ export default function App({ Component, pageProps }: AppProps) {
         })
       }
       else {
-        console.log('no user signed in')
-        router.push('/login')
+        if(!['/login', '/register'].includes(router.pathname)) {
+          console.log('no user signed in')
+          router.push('/login')
+        }
       }
       setUser(u)
       setIsLoading(false)
