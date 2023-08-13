@@ -22,11 +22,11 @@ export default function Home({ user }: HomeProps) {
   const [ isLoadingStocks, setIsLoadingStocks ] = useState<boolean>(false)
   const [ isLoadingNews, setIsLoadingNews ] = useState<boolean>(false)
   const [ isLoadingSearch, setIsLoadingSearch ] = useState<boolean>(false)
-  
+
   useEffect(() => {
     if(user) {
-        // loadStocks()
-        // loadNews()
+        loadStocks()
+        loadNews()
     }
   }, [user, router])
 
