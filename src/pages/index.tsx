@@ -60,64 +60,65 @@ export default function Home({ user }: HomeProps) {
 
   const loadNews = () => {
     setIsLoadingNews(true)
-    console.log('loading news')
     fetch('/api/stocks/news').then((res) => res.json()).then((data) => {
-      console.log('news:', data)
       setNews((_: any) => [ ...data ])
       setIsLoadingNews(false)
     })
   }
 
-  const search = () => {}
+  const searchStocks = (symbols: string) => {
+    fetch(`/api/stocks/quotes?symbols=${symbols}`).then((res) => res.json()).then((data) => {
+      console.log(data)
+      setStocks((_: any) => [ ...data ])
+    })
+  }
 
-  // const search = (q: string) => {
-  //   setIsLoadingSearch(true)
+  const search = async (q: string) => {
+    /**
+     * Step 1: Check if query exists in DB
+     *    Step 1a: If it doesnt: Convert query to list of stocks
+     *    Step 1b: If it does: Pull list of stocks from DB
+     * Step 2: Use YahooFinance search
+     * Step 3: Set search results
+     */
+    const res: any = await getDocs(query(collection(db, 'Search'), where("query", "==", q.toLowerCase())))
+    if(res.docs.length) {
+      const addedDate = new Date(res.docs[0].data().date.toDate()).getTime()
+      const currDate = new Date().getTime()
 
-  //   const handleYahooSearch = (symbols: string) => {
-  //     // fetch(`/api/stocks/quotes?symbols=${symbols}`).then((res) => res.json()).then((data) => {
-  //     //   setStocks(data)
-  //     //   setIsLoadingSearch(false)
-  //     // })
-  //     console.log('searching for ', symbols)
-  //   }
+      const monthInMilliseconds = 2_629_746_000
 
-  //   if(q === '') {
-  //     return loadStocks()
-  //   }
+      if(currDate - addedDate <= monthInMilliseconds) {
+        // still valid
+        searchStocks(res.docs[0].data().results)
+      }
+      else {
+        // expired
+        await deleteDoc(doc(db, "Search", res.docs[0].data().id))
 
-  //   // check to see if it exists in the DB
-  //   getDocs(query(collection(db, "Search"), where("query", "==", q.toLowerCase()))).then((results) => {
-  //     if(results.docs.length) {
-
-  //       /** CHECK IF RESULT IS STILL VALID */
-  //       const addedDate = new Date(results.docs[0].data().date).getTime()
-  //       const currDate = new Date().getTime()
-  //       const monthInMilliseconds = 2_629_746_000
-
-  //       if(currDate - addedDate >= monthInMilliseconds) {
-  //         // Query is expired...
-  //         console.log('older then a month')
-  //         // Delete from DB
-  //         deleteDoc(doc(db, "Search", results.docs[0].id))
-  //       }
-  //       else {
-  //         // Query is valid
-  //         q = results.docs[0].data().results
-  //       }
-  //     }
-  //     fetch(`/api/stocks/search-symbols?query=${q}`).then((res) => res.json()).then((data) => {
-
-  //       /** ADD TO DB */
-  //       addDoc(collection(db, "Search"), {
-  //         date: new Date(),
-  //         results: data.results,
-  //         query: q.toLowerCase()
-  //       })
-
-  //       handleYahooSearch(data.results)
-  //     })
-  //   })
-  // }
+        fetch(`/api/stocks/search-symbols?query=${q}`).then((res) => res.json()).then(async (syms) => {
+          const cleanSymbolList = syms.filter((sym: any) => !sym.includes('.')).join(',')
+          await addDoc(collection(db, "Search"), {
+            date: new Date(),
+            results: cleanSymbolList,
+            query: q.toLowerCase()
+          })
+          searchStocks(cleanSymbolList)
+        })
+      }
+    }
+    else {
+      fetch(`/api/stocks/search-symbols?query=${q}`).then((res) => res.json()).then(async (syms) => { 
+        const cleanSymbolList = syms.results.split(',').filter((sym: any) => !sym.includes('.')).join(',')
+        await addDoc(collection(db, "Search"), {
+          date: new Date(),
+          results: cleanSymbolList,
+          query: q.toLowerCase()
+        })
+        searchStocks(cleanSymbolList)
+      })
+    }
+  }
 
   return (
     <div id="home-wrapper">
