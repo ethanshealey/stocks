@@ -32,6 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
         const q = query(collection(db, "Users"), where("email", "==", u.email))
         getDocs(q).then((qs) => {
           const _u = qs.docs[0].data()
+          console.log(_u)
           setUser(_u)
         })
       }

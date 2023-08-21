@@ -186,7 +186,7 @@ const StockDetails = () => {
                         </div>
                         <PeriodSwitcher onChange={(p: string) => handlePeriodChange(p)} />
                         <div className='stock-graph'>
-                            <StockChart history={stockData} profile={profile} period={period} />
+                            <StockChart history={stockData.filter((d: any) => d.close > 0)} profile={profile} period={period} />
                         </div>
                         <div className='profile'>
                           <div className='about'>

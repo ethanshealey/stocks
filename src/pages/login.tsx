@@ -12,46 +12,6 @@ const Login = () => {
   const [ password, setPassword ] = useState('')
   const [ isLoading, setIsLoading ] = useState(false)
 
-  // const login = () => {
-  //   setIsLoading(true)
-  //   fetch('/api/auth/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({ "email": email, "password": password })
-  //   }).then((res) => res.json()).then((data) => {
-  //     if(data === "Login was a success") {
-  //       toast.success('Logged In Successfully!',
-  //         {
-  //           style: {
-  //             borderRadius: '10px',
-  //             background: '#333',
-  //             color: '#fff',
-  //           },
-  //         }
-  //       );
-  //       router.push('/')
-  //     }
-  //     else {
-  //       const error = JSON.parse(data.error)
-  //       if(error.code) 
-  //         toast.error('Incorrect email/password',
-  //             {
-  //               style: {
-  //                 borderRadius: '10px',
-  //                 background: '#333',
-  //                 color: '#fff',
-  //               },
-  //             }
-  //         );
-  //     }
-  //     setIsLoading(false)
-  //   }).catch((e) => {
-  //     console.log(e)
-  //   })
-  // }
-
   const login = () => {
     signInWithEmailAndPassword(auth, email, password).then((user) => {
       router.push('/')

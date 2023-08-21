@@ -7,6 +7,7 @@ import NewsList from '@/components/NewsList';
 import { toast } from 'react-hot-toast';
 import Header from '@/components/Header';
 import { useRouter } from 'next/router';
+import { db, doc, getDocs, where, query, collection, deleteDoc, addDoc } from '@/firebase'
 
 type HomeProps = {
   user: any
@@ -32,12 +33,9 @@ export default function Home({ user }: HomeProps) {
 
   const loadStocks = () => {
     setIsLoadingStocks(true)
-    console.log(user)
     if(!user?.stocks?.length) {
       user.stocks = ['SPY', 'AAPL', 'GOOG', 'RIVN', 'MSFT']
     }
-    console.log(user)
-
     fetch('/api/stocks/quotes?symbols=' + user?.stocks?.join(',')).then((res) => res.json()).then((data) => {
       if(data?.message === 'Exceeded monthly quota, please come back later :(') {
         setMONTHLYQUOTAERROR(true)
@@ -51,7 +49,6 @@ export default function Home({ user }: HomeProps) {
         })
         return
       }
-
       else {
         setStocks((_: any) => data)
         setIsLoadingStocks(false)
@@ -63,22 +60,64 @@ export default function Home({ user }: HomeProps) {
 
   const loadNews = () => {
     setIsLoadingNews(true)
+    console.log('loading news')
     fetch('/api/stocks/news').then((res) => res.json()).then((data) => {
+      console.log('news:', data)
       setNews((_: any) => [ ...data ])
       setIsLoadingNews(false)
     })
   }
 
-  const search = (query: string) => {
-    setIsLoadingSearch(true)
-    fetch(`/api/stocks/search?query=${query}`).then((res) => res.json()).then((data) => {
-      console.log(data.results)
-      fetch(`/api/stocks/quotes?symbols=${data.results}`).then((res) => res.json()).then((r) => {
-        setStocks((_: any) => r)
-        setIsLoadingSearch(false)
-      })
-    })
-  } 
+  const search = () => {}
+
+  // const search = (q: string) => {
+  //   setIsLoadingSearch(true)
+
+  //   const handleYahooSearch = (symbols: string) => {
+  //     // fetch(`/api/stocks/quotes?symbols=${symbols}`).then((res) => res.json()).then((data) => {
+  //     //   setStocks(data)
+  //     //   setIsLoadingSearch(false)
+  //     // })
+  //     console.log('searching for ', symbols)
+  //   }
+
+  //   if(q === '') {
+  //     return loadStocks()
+  //   }
+
+  //   // check to see if it exists in the DB
+  //   getDocs(query(collection(db, "Search"), where("query", "==", q.toLowerCase()))).then((results) => {
+  //     if(results.docs.length) {
+
+  //       /** CHECK IF RESULT IS STILL VALID */
+  //       const addedDate = new Date(results.docs[0].data().date).getTime()
+  //       const currDate = new Date().getTime()
+  //       const monthInMilliseconds = 2_629_746_000
+
+  //       if(currDate - addedDate >= monthInMilliseconds) {
+  //         // Query is expired...
+  //         console.log('older then a month')
+  //         // Delete from DB
+  //         deleteDoc(doc(db, "Search", results.docs[0].id))
+  //       }
+  //       else {
+  //         // Query is valid
+  //         q = results.docs[0].data().results
+  //       }
+  //     }
+  //     fetch(`/api/stocks/search-symbols?query=${q}`).then((res) => res.json()).then((data) => {
+
+  //       /** ADD TO DB */
+  //       addDoc(collection(db, "Search"), {
+  //         date: new Date(),
+  //         results: data.results,
+  //         query: q.toLowerCase()
+  //       })
+
+  //       handleYahooSearch(data.results)
+  //     })
+  //   })
+  // }
 
   return (
     <div id="home-wrapper">
