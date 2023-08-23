@@ -192,21 +192,33 @@ const StockDetails = () => {
                           <div className='about'>
                             <h1>About</h1>
                             <p>{ profile?.longBusinessSummary }</p>
-                            <hr />
-                            <div className='about-detail'>
-                              <p className='about-detail-left'><AiOutlineUser /> CEO</p>
-                              <p className='about-detail-right'>{profile?.companyOfficers[0]?.name}</p>
-                            </div>
-                            <hr />
-                            <div className='about-detail'>
-                              <p className='about-detail-left'><PiBrowser /> Website</p>
-                              <p className='about-detail-right'><a href={profile?.website} target="_blank">{profile?.website}</a></p>
-                            </div>
-                            <hr />
-                            <div className='about-detail'>
-                              <p className='about-detail-left'><PiUsersLight /> Employees</p>
-                              <p className='about-detail-right'>{convertLargeNumber(profile?.fullTimeEmployees, 'short')}</p>
-                            </div>
+                            { profile?.companyOfficers.length > 0 && (
+                              <>
+                                <hr />
+                                <div className='about-detail'>
+                                  <p className='about-detail-left'><AiOutlineUser /> CEO</p>
+                                  <p className='about-detail-right'>{profile?.companyOfficers[0]?.name}</p>
+                                </div>
+                              </>
+                            )} 
+                            { profile?.website && (
+                              <>
+                                <hr />
+                                <div className='about-detail'>
+                                  <p className='about-detail-left'><PiBrowser /> Website</p>
+                                  <p className='about-detail-right'><a href={profile?.website} target="_blank">{profile?.website}</a></p>
+                                </div>
+                              </>
+                            )}
+                            { profile?.fullTimeEmployees && (
+                              <>
+                                <hr />
+                                <div className='about-detail'>
+                                  <p className='about-detail-left'><PiUsersLight /> Employees</p>
+                                  <p className='about-detail-right'>{convertLargeNumber(profile?.fullTimeEmployees, 'short')}</p>
+                                </div>
+                              </>
+                            )}
                           </div>
                           <div className='info'>
                             <br />

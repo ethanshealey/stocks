@@ -69,6 +69,7 @@ export default function Home({ user }: HomeProps) {
   const searchStocks = (symbols: string) => {
     fetch(`/api/stocks/quotes?symbols=${symbols}`).then((res) => res.json()).then((data) => {
       console.log(data)
+      setIsLoadingStocks(false)
       setStocks((_: any) => [ ...data ])
     })
   }
@@ -81,6 +82,7 @@ export default function Home({ user }: HomeProps) {
      * Step 2: Use YahooFinance search
      * Step 3: Set search results
      */
+    setIsLoadingSearch(true)
     const res: any = await getDocs(query(collection(db, 'Search'), where("query", "==", q.toLowerCase())))
     if(res.docs.length) {
       const addedDate = new Date(res.docs[0].data().date.toDate()).getTime()
