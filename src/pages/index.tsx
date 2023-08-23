@@ -67,11 +67,23 @@ export default function Home({ user }: HomeProps) {
   }
 
   const searchStocks = (symbols: string) => {
-    fetch(`/api/stocks/quotes?symbols=${symbols}`).then((res) => res.json()).then((data) => {
-      console.log(data)
-      setIsLoadingStocks(false)
-      setStocks((_: any) => [ ...data ])
-    })
+    if(symbols.length > 0)
+      fetch(`/api/stocks/quotes?symbols=${symbols}`).then((res) => res.json()).then((data) => {
+        console.log(data)
+        setIsLoadingSearch(false)
+        setStocks((_: any) => [ ...data ])
+      })
+    else {
+      loadStocks()
+      setIsLoadingSearch(false)
+      toast.error(`No symbols found for search term`, {
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+      })
+    }
   }
 
   const search = async (q: string) => {
