@@ -50,6 +50,7 @@ export default function Home({ user }: HomeProps) {
         return
       }
       else {
+        console.log(data)
         setStocks((_: any) => data)
         setIsLoadingStocks(false)
       }

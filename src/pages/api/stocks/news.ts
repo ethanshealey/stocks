@@ -19,6 +19,9 @@ export default function handler(
     }).then((r) => r.json()).then(async (data) => {
         const newsItems: any[] = []
 
+        console.log(data)
+        data = data.body
+
         for(let i = 0; i < 10; i++) {
             const metadata = await urlMetaData(data[i].link)
             let currentNewsItem: any = {}

@@ -22,15 +22,16 @@ export default function handler(
     headers.set( 'X-RapidAPI-Host', process.env.X_RAPIDAPI_HOST || '')
 
     if(symbols?.length > 0) {
-      fetch('https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/' + symbols, {
+      fetch('https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/quotes?ticker=' + symbols, {
           method: "GET",
           headers: headers
       }).then((r) => r.json()).then((data) => {
+
           if(data?.message === 'You have exceeded the MONTHLY quota for Request on your current plan, BASIC. Upgrade your plan at https://rapidapi.com/sparior/api/yahoo-finance15')
             res.status(500).json({ "message": "Exceeded monthly quota, please come back later :(" })
-
+          
           const stocks: any = []
-          data.forEach((stock: any) => {
+          data.body.forEach((stock: any) => {
             stocks.push({
               symbol: stock.symbol,
               longName: stock.longName,
@@ -39,6 +40,7 @@ export default function handler(
               changePercent: stock.regularMarketChangePercent
             })
           })
+
           return res.status(200).json(stocks)
       }).catch((err) => {
         console.log('Error in /api/stocks/quotes =>', err)
