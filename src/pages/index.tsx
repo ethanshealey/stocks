@@ -50,7 +50,6 @@ export default function Home({ user }: HomeProps) {
         return
       }
       else {
-        console.log(data)
         setStocks((_: any) => data)
         setIsLoadingStocks(false)
       }
@@ -70,7 +69,6 @@ export default function Home({ user }: HomeProps) {
   const searchStocks = (symbols: string) => {
     if(symbols.length > 0)
       fetch(`/api/stocks/quotes?symbols=${symbols}`).then((res) => res.json()).then((data) => {
-        console.log(data)
         setIsLoadingSearch(false)
         setStocks((_: any) => [ ...data ])
       })
@@ -96,7 +94,9 @@ export default function Home({ user }: HomeProps) {
      * Step 3: Set search results
      */
     setIsLoadingSearch(true)
+
     const res: any = await getDocs(query(collection(db, 'Search'), where("query", "==", q.toLowerCase())))
+    
     if(res.docs.length) {
       const addedDate = new Date(res.docs[0].data().date.toDate()).getTime()
       const currDate = new Date().getTime()
@@ -109,7 +109,7 @@ export default function Home({ user }: HomeProps) {
       }
       else {
         // expired
-        await deleteDoc(doc(db, "Search", res.docs[0].data().id))
+        await deleteDoc(doc(db, "Search", res.docs[0].id))
 
         fetch(`/api/stocks/search-symbols?query=${q}`).then((res) => res.json()).then(async (syms) => {
           const cleanSymbolList = syms.filter((sym: any) => !sym.includes('.')).join(',')
@@ -125,11 +125,11 @@ export default function Home({ user }: HomeProps) {
     else {
       fetch(`/api/stocks/search-symbols?query=${q}`).then((res) => res.json()).then(async (syms) => { 
         const cleanSymbolList = syms.results.split(',').filter((sym: any) => !sym.includes('.')).join(',')
-        await addDoc(collection(db, "Search"), {
-          date: new Date(),
-          results: cleanSymbolList,
-          query: q.toLowerCase()
-        })
+        // await addDoc(collection(db, "Search"), {
+        //   date: new Date(),
+        //   results: cleanSymbolList,
+        //   query: q.toLowerCase()
+        // })
         searchStocks(cleanSymbolList)
       })
     }

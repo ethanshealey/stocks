@@ -120,7 +120,7 @@
         }
     }
     .stock-graph {
-        height: 500px;
+        min-height: 500px;
         width: calc(100% + 65px);
         margin-left: -65px;
     }

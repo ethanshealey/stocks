@@ -19,7 +19,6 @@ export default function handler(
     }).then((r) => r.json()).then(async (data) => {
         const newsItems: any[] = []
 
-        console.log(data)
         data = data.body
 
         for(let i = 0; i < 10; i++) {
@@ -44,5 +43,5 @@ export default function handler(
             await sleep(10)
 
         res.status(200).json(newsItems)
-    })
+    }) 
 }

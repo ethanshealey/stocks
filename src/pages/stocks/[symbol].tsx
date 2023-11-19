@@ -33,22 +33,19 @@ const StockDetails = () => {
     const [ period, setPeriod ] = useState<string>('1d')
 
     useEffect(() => {
-        setIsLoadingHistory(true)
+        // setIsLoadingHistory(true)
         setIsLoadingProfile(true)
         if(symbol) {
             fetch(`/api/stocks/history?symbol=${symbol}&interval=5m`).then((res) => res.json()).then((data) => {
-                console.log(data.history)
                 setShortTermHistory(data.history)
                 setHistory(data.history)
                 setIsLoadingHistory(false)
             })
             fetch(`/api/stocks/history?symbol=${symbol}&interval=1d`).then((res) => res.json()).then((data) => {
-              console.log(data.history)
               setLongTermHistory(data.history)
               setIsLoadingHistory(false)
             })
             fetch(`/api/stocks/profile?symbol=${symbol}`).then((res) => res.json()).then((data) => {
-                console.log(data.profile)
                 setProfile(data.profile)
                 setIsLoadingProfile(false)
             })
@@ -192,7 +189,7 @@ const StockDetails = () => {
                           <div className='about'>
                             <h1>About</h1>
                             <p>{ profile?.longBusinessSummary }</p>
-                            { profile?.companyOfficers.length > 0 && (
+                            { profile?.companyOfficers?.length > 0 && (
                               <>
                                 <hr />
                                 <div className='about-detail'>
@@ -245,8 +242,8 @@ const StockDetails = () => {
                             <div className='info-detail'>
                               <p className='info-detail-left'>Primary Exchange</p>
                               <p className='info-detail-right'>{profile?.fullExchangeName}</p>
-                            </div>                          </div>
-                          
+                            </div>                          
+                          </div>
                         </div>
                     </div>
                 )

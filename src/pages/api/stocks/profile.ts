@@ -13,15 +13,15 @@ export default function handler(
 
     const sym = req.query.symbol
 
-    fetch(`https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/${sym}/asset-profile`, {
+    fetch(`https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/modules?ticker=${sym}&module=asset-profile`, {
         headers: headers
     }).then((res) => res.json()).then((data) => {
-        const profile = data.assetProfile
-        fetch(`https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/${sym}`, {
+        const profile = data.body
+        fetch(`https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/quotes?ticker=${sym}`, {
             headers: headers
         }).then((res) => res.json()).then((data) => {
             res.status(200).json({
-                profile: { ...profile, ...data[0] }
+                profile: { ...profile, ...data.body[0] }
             })
         })
     })

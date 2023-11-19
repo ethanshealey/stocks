@@ -19,8 +19,9 @@ export default function handler(
         fetch(`https://yahoo-finance15.p.rapidapi.com/api/yahoo/hi/history/${sym}/${interval}`, {
             headers: headers
         }).then((res) => res.json()).then((data) => {
+            const entries = data.body
             const history: any[] = []
-            for(const [k,v] of Object.entries(data.items)) {
+            for(const [k,v] of Object.entries(entries)) {
                 const val: any = v
                 const tdate = new Date(val.date_utc * 1000).toString().split(':')
                 tdate.pop()
