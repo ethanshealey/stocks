@@ -119,6 +119,10 @@
             color: $red;
         }
     }
+
+    .recharts-responsive-container {
+        min-height: 500px;
+    }
     .stock-graph {
         min-height: 500px;
         width: calc(100% + 65px);

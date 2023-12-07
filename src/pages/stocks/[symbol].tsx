@@ -28,6 +28,7 @@ const StockDetails = () => {
     const [ shortTermHistory, setShortTermHistory ] = useState<any[]>([])
     const [ longTermHistory, setLongTermHistory ] = useState<any[]>([])
     const [ profile, setProfile ] = useState<any>()
+    const [ companyImage, setCompanyImage ] = useState<string>('')
 
     const [ stockData, setStockData ] = useState<any[]>([])
     const [ period, setPeriod ] = useState<string>('1d')
@@ -49,6 +50,7 @@ const StockDetails = () => {
                 setProfile(data.profile)
                 setIsLoadingProfile(false)
             })
+            
             // setHistory(mockShortTermData)
             // setShortTermHistory((_: any) => mockShortTermData)
             // setLongTermHistory((_: any) => mockLongTermData)
@@ -174,7 +176,7 @@ const StockDetails = () => {
                             <Link href={'/'}>HOME</Link> <span><BsChevronRight /></span> { ` ${profile?.symbol}` }
                         </div>
                         <h1 className='stock-name'>
-                            { profile?.longName }
+                            <img src={companyImage} />{ profile?.longName }
                         </h1>
                         <div className='stock-price'>
                             <h1 className='stock-price-current'>${ profile?.regularMarketPrice?.toFixed(2) }</h1>
